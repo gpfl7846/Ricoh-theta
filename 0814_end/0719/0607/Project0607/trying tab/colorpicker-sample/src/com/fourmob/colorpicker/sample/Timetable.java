@@ -23,7 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
@@ -455,22 +454,6 @@ public class Timetable extends Activity implements OnClickListener {
                                     intent.putExtra("starttime", c.getString(3));
                                     intent.putExtra("endtime", c.getString(4));
                                     intent.putExtra("colorpicker", c.getInt(5));
-                                    String subject = c.getString(1);
-
-                                    Toast.makeText(Timetable.this, subject, Toast.LENGTH_SHORT).show(); //까페
-
-//                                    String str = songManager.getPath();
-//                                    Toast.makeText(Timetable.this, str, Toast.LENGTH_SHORT).show();//이닛
-
-                                    playerService.setPlayList(subject);
-                                    Toast.makeText(Timetable.this, subject, Toast.LENGTH_SHORT).show();//까페
-
-                                    // String str = playerService.getPath();
-                                   //  Toast.makeText(Timetable.this, str, Toast.LENGTH_SHORT).show();//까페
-
-
-
-
                                     break;
                                 }
 
@@ -705,39 +688,6 @@ public class Timetable extends Activity implements OnClickListener {
         }
 
     }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Intent playerServiceIntent = new Intent(this, DBAdapter.PlayerService.class);
-        getApplicationContext().bindService(playerServiceIntent, playerServiceConnection, Context.BIND_AUTO_CREATE);
-        //Toast.makeText(Timetable.this(), mBound, Toast.LENGTH_SHORT).show();
-        if(mBound){
-        Toast.makeText(Timetable.this, "시발", Toast.LENGTH_SHORT).show();//까페
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-       if(mBound){
-           getApplicationContext().unbindService(playerServiceConnection);
-           mBound=false;
-       }
-
-
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
 
 
 

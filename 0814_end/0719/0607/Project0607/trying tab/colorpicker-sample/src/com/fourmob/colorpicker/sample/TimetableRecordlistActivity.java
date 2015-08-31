@@ -2,201 +2,199 @@ package com.fourmob.colorpicker.sample;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteCursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.IBinder;
+import android.os.Handler;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.Random;
 
-public class TimetableRecordlistActivity extends Activity {
-    private ImageButton playButton, prevButton, nextButton, backwardButton, forwardButton;
+public class TimetableRecordlistActivity extends Activity implements MediaPlayer.OnCompletionListener, SeekBar.OnSeekBarChangeListener
+
+
+{
+    private ImageButton btnPlay;
+    private ImageButton btnForward;
+    private ImageButton btnBackward;
+    private ImageButton btnNext;
+    private ImageButton btnPrevious;
+    private ImageButton btnPlaylist;
     private ActionBar actionBar;
-    private SeekBar trackSeek;
-    private TextView currentTrackProgressView, currentTrackDurationView;
-    private Timer progressRefresher;
-    private int playerStatus;
-    private UiRefresher uiRefresher;
-    private DBAdapter.PlayerService playerService;
-    private ListView tracklistView;
+    private SeekBar songProgressBar;
+    private TextView songTitleLabel;
+    private TextView songCurrentDurationLabel;
+    private TextView songTotalDurationLabel;
+    // Media Player
+    private  MediaPlayer mp;
+    // Handler to update UI timer, progress bar etc,.
+    private Handler mHandler = new Handler();
+    private SongsManager songManager;
+    private Utilities utils;
+    private int seekForwardTime = 5000; // 5000 milliseconds
+    private int seekBackwardTime = 5000; // 5000 milliseconds
+    private int currentSongIndex = 0;
+    private boolean isShuffle = false;
+    private boolean isRepeat = false;
+    private ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
 
-    // private int currentSongIndex = 0;
-    //public SongsManager songManager;
-    boolean mBound = false;
-    private Spinner spin;
-    private ArrayList<HashMap<String, String>> songsList2 = new ArrayList<HashMap<String,
-            String>>();
-    private ArrayList<HashMap<String, String>> songsList3 = new ArrayList<HashMap<String,
-            String>>();
-    private ArrayAdapter<DBAdapter.PlayerService.Track> songsList;
+    private String[] audiolist = {};
+
     ListView list;
     RecordTimeTable_Helper dbHelper;
-
-    final String tlqkf ="";
-
-    //  private ArrayAdapter<Track> tracklistAdapter;
-    private SimpleAdapter tracklistAdapter;
-//    private ArrayAdapter<HashMap<String, String>> tracklistAdapter;
-
+    SQLiteDatabase db;
     String sql;
     Cursor cursor;
+    String str3 = "" ;
+
+
+
     String sub1="";
     final static String dbName = "memoDB.db";
     final static int dbVersion = 2;
 
-
-
-
-
-
-    /** Defines callbacks for service binding, passed to bindService() */
-    private ServiceConnection playerServiceConnection = new ServiceConnection() {
-
-        @Override
-        public void onServiceConnected(ComponentName className,
-                                       IBinder service) {
-            // We've bound to LocalService, cast the IBinder and get LocalService instance
-
-            DBAdapter.PlayerService.PlayerBinder binder = (DBAdapter.PlayerService.PlayerBinder) service;
-            playerService = binder.getService();
-            uiRefresher = new UiRefresher();
-            (new Thread(uiRefresher)).start();
-            mBound = true;
-
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName arg0) {
-            mBound = false;
-        }
-    };
-
-/*    public player() {
-    }*/
-
+    @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show_timetable_recordlist);
 
-        spin = (Spinner) findViewById(R.id.spinner1);
-        progressRefresher = new Timer();
+        final Spinner spin = (Spinner) findViewById(R.id.spinner1);
+        // All player buttons
+        btnPlay = (ImageButton) findViewById(R.id.btnPlay);
+        btnForward = (ImageButton) findViewById(R.id.btnForward);
+        btnBackward = (ImageButton) findViewById(R.id.btnBackward);
+        btnNext = (ImageButton) findViewById(R.id.btnNext);
+        btnPrevious = (ImageButton) findViewById(R.id.btnPrevious);
+        // btnPlaylist = (ImageButton) findViewById(R.id.btnPlaylist);
 
-        tracklistView = (ListView)findViewById(R.id.indexlist);
-        playButton = (ImageButton)findViewById(R.id.playButton);
-        prevButton = (ImageButton)findViewById(R.id.previousButton);
-        nextButton = (ImageButton)findViewById(R.id.nextButton);
-        backwardButton = (ImageButton)findViewById(R.id.backwardButton);
-        forwardButton = (ImageButton)findViewById(R.id.forwardButton);
-        trackSeek = (SeekBar)findViewById(R.id.track_seek);
-        currentTrackProgressView = (TextView)findViewById(R.id.track_progress);
-        currentTrackDurationView = (TextView)findViewById(R.id.track_duration);
-        // actionBar = getActionBar();
-        // actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#de4e43")));
-        dbHelper = new RecordTimeTable_Helper(this);
-//        selectDB(sub1);
-        //final Timetable tt = new Timetable();
-        //songManager = new SongsManager();
-//        songsList2 = songManager.getPlayList();
-        Log.v("JinHee", "songList2: " + songsList2);
-
-        progressRefresher.schedule(new TimerTask() {
-
-            @Override
-            public void run() {
-                if (playerStatus == DBAdapter.PlayerService.PLAYING) {
-                    refreshTrack();
-                }
-            }
-        }, 0, 500);
+        songProgressBar = (SeekBar) findViewById(R.id.songProgressBar);
+        //songTitleLabel = (TextView) findViewById(R.id.songTitle);
+        songCurrentDurationLabel = (TextView) findViewById(R.id.songCurrentDurationLabel);
+        songTotalDurationLabel = (TextView) findViewById(R.id.songTotalDurationLabel);
 
 
+        actionBar = getActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#de4e43")));
 
 
-        //     registerForContextMenu(spin);
+        // Mediaplayer
+        mp = new MediaPlayer();
+        songManager = new SongsManager();
+        utils = new Utilities();
+
+        // Listeners
+        songProgressBar.setOnSeekBarChangeListener(this); // Important
+        mp.setOnCompletionListener(this); // Important
+
+        // Getting all songs list
+        songsList = songManager.getPlayList();
+
+
+        // By default play first song
+        playSong(0);
+
+        // 스피너 객체 참조
+
+
+
 
         list = (ListView)findViewById(R.id.indexlist);
-        //인덱스 리스트 함수
+
+        dbHelper = new RecordTimeTable_Helper(this);
+
+
+        selectDB(sub1);
+
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 cursor.moveToPosition(position);
                 // String str = cursor.getString(cursor.getColumnIndex("memo"));
                 String time = cursor.getString(cursor.getColumnIndex("memoTime"));
                 int index2 = Integer.parseInt(time);
                 int index3 = index2 * 1000;
                 // Toast.makeText(getApplicationContext(), str, Toast.LENGTH_SHORT).show();
-                //Toast.makeText(getApplicationContext(), time, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), time, Toast.LENGTH_SHORT).show();
 
-                playerService.seekTrack(index3);
+                mp.seekTo(index3);
 
             }
         });
 
-        //과목명 불러오는 함수
+
         final Intent intent = getIntent();
         int id = intent.getIntExtra("id", 0);
         String subject= intent.getStringExtra("subject");
-        TextView subjectwrite = (TextView) findViewById( R.id.subject);
-        subjectwrite.setText(subject);
+        String classroom = intent.getStringExtra("classroom");
 
+        TextView subjectwrite = (TextView) findViewById( R.id.subject);
+
+        subjectwrite.setText(subject);
 
         /**
          * Play button click event
          * plays a song and changes button to pause image
          * pauses a song and changes button to play image
          * */
-        playButton.setOnClickListener(new View.OnClickListener() {
+        btnPlay.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick (View arg0){
+            public void onClick(View arg0) {
                 // check for already playing
-                if (playerStatus == DBAdapter.PlayerService.PLAYING) {
-                    playerService.pause();
-                    // Changing button image to play button
-                    playButton.setImageResource(R.drawable.btn_play);
+                if (mp.isPlaying()) {
+                    if (mp != null) {
+                        mp.pause();
+                        // Changing button image to play button
+                        btnPlay.setImageResource(R.drawable.btn_play);
+                    }
                 } else {
                     // Resume song
-                    playerService.play();
-                    // Changing button image to pause button
-                    playButton.setImageResource(R.drawable.btn_pause);
+                    if (mp != null) {
+                        mp.start();
+                        // Changing button image to pause button
+                        btnPlay.setImageResource(R.drawable.btn_pause);
+                    }
                 }
-
-
-/*                final ArrayList<HashMap<String, String>> list3 =
-playerService.getTracklist();
-                Log.v("JinHee", "서비스는 정상이길 ㅎㅎㅎㅎㅎ 시발 : "+ list3);*/
 
             }
         });
-
-
 
         /**
          * Forward button click event
          * Forwards song specified seconds
          * */
-        forwardButton.setOnClickListener(new View.OnClickListener() {
+        btnForward.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                playerService.forward();
+                // get current song position
+                int currentPosition = mp.getCurrentPosition();
+                // check if seekForward time is lesser than song duration
+                if (currentPosition + seekForwardTime <= mp.getDuration()) {
+                    // forward song
+                    mp.seekTo(currentPosition + seekForwardTime);
+                } else {
+                    // forward to end position
+                    mp.seekTo(mp.getDuration());
+                }
             }
         });
 
@@ -204,24 +202,21 @@ playerService.getTracklist();
          * Backward button click event
          * Backward song to specified seconds
          * */
-        backwardButton.setOnClickListener(new View.OnClickListener() {
+        btnBackward.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                playerService.backward();
-            }
-        });
+                // get current song position
+                int currentPosition = mp.getCurrentPosition();
+                // check if seekBackward time is greater than 0 sec
+                if (currentPosition - seekBackwardTime >= 0) {
+                    // forward song
+                    mp.seekTo(currentPosition - seekBackwardTime);
+                } else {
+                    // backward to starting position
+                    mp.seekTo(0);
+                }
 
-
-        /**
-         * Prev Back button click event
-         * Plays previous song by currentSongIndex - 1
-         * */
-        prevButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                playerService.prevTrack();
             }
         });
 
@@ -229,242 +224,309 @@ playerService.getTracklist();
          * Next button click event
          * Plays next song by taking currentSongIndex + 1
          * */
-        nextButton.setOnClickListener(new View.OnClickListener() {
+        btnNext.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                playerService.nextTrack();
+                // check if next song is there or not
+                if (currentSongIndex < (songsList.size() - 1)) {
+                    playSong(currentSongIndex + 1);
+                    currentSongIndex = currentSongIndex + 1;
+                } else {
+                    // play first song
+                    playSong(0);
+                    currentSongIndex = 0;
+                }
+
             }
         });
 
-
-
         /**
-         * PlayList Setting into spinner
-         *
+         * Back button click event
+         * Plays previous song by currentSongIndex - 1
          * */
+        btnPrevious.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View arg0) {
+                if (currentSongIndex > 0) {
+                    playSong(currentSongIndex - 1);
+                    currentSongIndex = currentSongIndex - 1;
+                } else {
+                    // play last song
+                    playSong(songsList.size() - 1);
+                    currentSongIndex = songsList.size() - 1;
+                }
 
-        tracklistAdapter = new SimpleAdapter(this, songsList3,
-                R.layout.spinner_dropdown_item, new String[] { "songTitle" }, new int[]
-                {R.id.tracklist_item_title });
-        tracklistAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        spin.setAdapter(tracklistAdapter);
+            }
+        });
+
+        ArrayList<HashMap<String, String>> songsListData = new ArrayList<HashMap<String, String>>();
+
+        SongsManager plm = new SongsManager();
+        // get all songs from sdcard
+        this.songsList = plm.getPlayList();
+
+        // looping through playlist
+        for (int i = 0; i < songsList.size(); i++) {
+            // creating new HashMap
+            HashMap<String, String> song = songsList.get(i);
+
+            // adding HashList to ArrayList
+            songsListData.add(song);
+        }
+
+        // Adding menuItems to ListView
+        SimpleAdapter adapter = new SimpleAdapter(this, songsListData, R.layout.spinner_dropdown_item, new String[] { "songTitle" }, new int[] {R.id.songTitle });
+
+        // ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, audiolist);
+
+        spin.setAdapter(adapter);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        // 어댑터 설정
+        spin.setAdapter(adapter);
 
 
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
-                // playerService.play(pos);
-
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 String text = spin.getSelectedItem().toString();
+
+
+
                 String[] arr = text.split("=");
                 String strsss = arr[2];
                 int length1 = strsss.length();
+
                 sub1 = strsss.substring(0,length1-1);
                 selectDB(sub1);
-                int songIndex = pos;
-                playerService.playTrack(songIndex);
+
+
+                int songIndex = position;
+                playSong(songIndex);
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
             }
+
         });
 
-        /**
-         * SeekBar function
-         *
-         * */
-        trackSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
-            @Override
-            public void onProgressChanged(SeekBar arg0, final int pos, boolean user) {
-                runOnUiThread(new Runnable() {
 
-                    @Override
-                    public void run() {
-                        currentTrackProgressView.setText(DBAdapter.PlayerService.formatTrackDuration
-                                (pos));
-                    }
-                });
-                if (user) {
-                    playerService.seekTrack(pos);
-                }
-            }
 
-            @Override
-            public void onStopTrackingTouch(SeekBar arg0) {
-            }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar arg0) {
-            }
-        });
-        progressRefresher.schedule(new TimerTask() {
-
-            @Override
-            public void run() {
-                if (playerStatus == DBAdapter.PlayerService.PLAYING) {
-                    refreshTrack();
-                }
-            }
-        }, 0, 500);
-    }// Oncreate End
+    }// onCreate End
 
     @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Intent playerServiceIntent = new Intent(this, DBAdapter.PlayerService.class);
-        getApplicationContext().bindService(playerServiceIntent, playerServiceConnection,
-                0);
-        mBound=true;
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (playerService != null) {
-            synchronized (playerService) {
-                playerService.notifyAll();
-                uiRefresher.done();
-            }
-        }
-        if (playerService != null) {
-            getApplicationContext().unbindService(playerServiceConnection);
-            mBound=false;
-            //playerService.storeTracklist();
+    protected void onActivityResult(int requestCode,
+                                    int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 100){
+            currentSongIndex = data.getExtras().getInt("songIndex");
+            // play selected song
+            playSong(currentSongIndex);
         }
 
     }
+
+    /**
+     * Function to play a song
+     * @param songIndex - index of song
+     * */
+
+
+    public void  playSong(int songIndex){
+        // Play song
+        try {
+            mp.reset();
+            mp.setDataSource(songsList.get(songIndex).get("songPath"));
+            mp.prepare();
+            btnPlay.setImageResource(R.drawable.btn_play); //자동재생이 아니니 재생하기 이미지로 시작
+
+            // set Progress bar values
+            songProgressBar.setProgress(0);
+            songProgressBar.setMax(100);
+
+            // Updating progress bar
+            updateProgressBar();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Update timer on seekbar
+     * */
+    public void updateProgressBar() {
+        mHandler.postDelayed(mUpdateTimeTask, 100);
+    }
+
+    /**
+     * Background Runnable thread
+     * */
+    protected Runnable mUpdateTimeTask = new Runnable() {
+        public void run() {
+            long totalDuration = mp.getDuration();
+            long currentDuration = mp.getCurrentPosition();
+
+            // Displaying Total Duration time
+            songTotalDurationLabel.setText("" + utils.milliSecondsToTimer(totalDuration));
+            // Displaying time completed playing
+            songCurrentDurationLabel.setText("" + utils.milliSecondsToTimer(currentDuration));
+
+            // Updating progress bar
+            int progress = (int) (utils.getProgressPercentage(currentDuration, totalDuration));
+            //Log.d("Progress", ""+progress);
+            songProgressBar.setProgress(progress);
+
+            // Running this thread after 100 milliseconds
+            mHandler.postDelayed(this, 100);
+
+
+
+
+
+        }
+
+
+    };
+
+
+
+    // 뒤로가기(KECODE BACK) 누르면 쓰레드 핸들러를 종료시키는 이벤트
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+        {
+            updateProgressBar();
+            mHandler.removeCallbacks(mUpdateTimeTask);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromTouch) {
+
+    }
+
+    /**
+     * When user starts moving the progress handler
+     * */
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+        // remove message Handler from updating progress bar
+        mHandler.removeCallbacks(mUpdateTimeTask);
+    }
+
+    /**
+     * When user stops moving the progress hanlder
+     * */
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+        mHandler.removeCallbacks(mUpdateTimeTask);
+        int totalDuration = mp.getDuration();
+        int currentPosition = utils.progressToTimer(seekBar.getProgress(), totalDuration);
+
+        // forward or backward to certain seconds
+        mp.seekTo(currentPosition); // 사용자가 누른 구간으로 이동하여 재생
+
+        // update timer progress again
+        updateProgressBar();
+    }
+
+
+
+
+    /**
+     * On Song Playing completed
+     * if repeat is ON play same song again
+     * if shuffle is ON play random song
+     * */
+    @Override
+    public void onCompletion(MediaPlayer arg0) {
+
+        // check for repeat is ON or OFF
+        if(isRepeat){
+            // repeat is on play same song again
+            playSong(currentSongIndex);
+        } else if(isShuffle){
+            // shuffle is on - play a random song
+            Random rand = new Random();
+            currentSongIndex = rand.nextInt((songsList.size() - 1) - 0 + 1) + 0;
+            playSong(currentSongIndex);
+        } else{
+            // no repeat or shuffle ON - play next song
+            if(currentSongIndex < (songsList.size() - 1)){
+                playSong(currentSongIndex + 1);
+                currentSongIndex = currentSongIndex + 1;
+            }else{
+                // play first song
+                playSong(0);
+                currentSongIndex = 0;
+            }
+        }
+    }
+
+
+
+
+
+
+
+    @Override
 /*
-    @Override
-    protected void onDestroy() {
+    public void onDestroy(){
         super.onDestroy();
-        if(playerService != null){
-            getApplicationContext().unbindService(playerServiceConnection);
-            mBound=false;
-
-        }
+        mp.release();
     }
 */
-
-    private void refreshTrack() {
-
-        final int progress = playerService.getCurrentTrackProgress(), max =
-                playerService.getCurrentTrackDuration();
-        final String durationText = DBAdapter.PlayerService.formatTrackDuration
-                (playerService.getCurrentTrackDuration()), progressText = DBAdapter.PlayerService.formatTrackDuration
-                (playerService.getCurrentTrackProgress());
-        runOnUiThread(new Runnable() {
-
-            @Override
-            public void run() {
-
-                currentTrackDurationView.setText(durationText);
-                currentTrackProgressView.setText(progressText);
-                trackSeek.setMax(max);
-                trackSeek.setProgress(progress);
-            }
-        });
-    }
-    private void refreshButtons() {
-        runOnUiThread(new Runnable() {
-
-            @Override
-            public void run() {
-                switch (playerStatus) {
-                    case DBAdapter.PlayerService.PLAYING:
-                        playButton.setImageResource(R.drawable.btn_pause);
-                        break;
-                    default:
-                        playButton.setImageResource(R.drawable.btn_play);
-                        break;
-                }
-
-            }
-        });
-    }
-    private void refreshTracklist() {
-
-        final ArrayList<HashMap<String, String>> currentTracks = playerService.getTracklist
-                ();
-        final int currentTrackPosition = playerService.getCurrentTrackPosition();
-
-        runOnUiThread(new Runnable() {
-
-            @Override
-            public void run() {
-
-                songsList3.clear();
-                Log.v("JinHee", "널떠라 ㅎㅎ " + songsList3);
-                for (int i = 0; i < currentTracks.size(); i++) {
-                    HashMap<String, String> song = currentTracks.get(i);
-                    songsList3.add(song);
-                }
-
-                tracklistAdapter.notifyDataSetChanged();
-                spin.setSelection(currentTrackPosition);
-                // final String test = playerService.getPath();
-                Log.v("JinHee", "Run을 돌고있는 songsList3입니다. : " + songsList3);
-            }
-
-        });
-    }
-
-    private class UiRefresher implements Runnable {
-        private boolean done = false;
-
-        public void done() {
-            done = true;
-        }
-
-        @Override
-        public void run () {
-
-            while (!done) {
-                synchronized (playerService) {
-                    playerStatus = playerService.getStatus();
-                    refreshTrack();
-                    refreshTracklist();
-                    refreshButtons();
-                    playerService.take();
-                    try {
-                        playerService.wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-
+    public void onDestroy(){
+// 액티비티가 종료될 때
+        super.onDestroy();
+        if(mp != null)
+            mp.release();
+// MediaPlayer 객체를 Release합니다.
+        mp = null;
     }
 
     private void selectDB(String subject){
-        sql = "select DISTINCT oid as _id,memo, memoTime from memoTABLE where fileName='"+subject+".mp4'";
+        //dbHelper.db = dbHelper.getWritableDatabase();
+        //  subject = "15주차수업3";
+        //sql ="select DISTINCT oid as _id,memo, memoTime from memoTABLE where  ' " + subject + " ' ";
+        //sql ="select DISTINCT oid as _id,memo, memoTime from memoTABLE where '15주차수업3'";
+        // sql = "SELECT DISTINCT oid as _id,memo, memoTime FROM memoTABLE WHERE fileName ='15주차수업1'";
+
+        //subject ="15weekclass3";
+
+        sql = "select DISTINCT oid as _id,memo, memoTime from memoTABLE where fileName ='"+subject+".mp4'";
+        // sql = "select DISTINCT oid as _id,memo, memoTime from memoTABLE";
+        //스피너 값 넣어야함
+        //sql = "select DISTINCT oid as _id,memo, memoTime from memoTABLE where memo ='"+subjecttest+"' ";
         cursor = dbHelper.db.rawQuery(sql, null);
         if(cursor.getCount() > 0){
-            Log.v("JinHee", "GetCount??" + cursor.getCount());
             startManagingCursor(cursor);
             DBAdapter dbAdapter = new DBAdapter(this, cursor,0);
             list.setAdapter(dbAdapter);
             dbAdapter.notifyDataSetChanged();
-        }
-        else {
-            list.setAdapter(null);
 
         }
     }
+
+
+
+
+
+
+
+
 
 }
