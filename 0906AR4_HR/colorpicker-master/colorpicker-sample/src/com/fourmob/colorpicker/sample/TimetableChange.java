@@ -1,6 +1,8 @@
 package com.fourmob.colorpicker.sample;
 
+import android.app.AlertDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -33,9 +35,10 @@ public class TimetableChange  extends FragmentActivity {
     int mSelectedMinutesplus;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.timetable_input_dig);
-        Button savebtn = (Button) findViewById(R.id.savebtn);
-        Button deletebtn = (Button) findViewById(R.id.deletebtn);
+        setContentView(R.layout.timetable_change);
+        Button savebtn = (Button) findViewById(R.id.add);
+        Button cancel = (Button) findViewById(R.id.cancel);
+        Button delete = (Button) findViewById(R.id.delete);
         put_starttimechange = (Button) findViewById(R.id.start_time_btn);
         put_endtimechange  = (Button) findViewById(R.id.end_time_btn);
         final Intent intent = getIntent();
@@ -201,96 +204,131 @@ public class TimetableChange  extends FragmentActivity {
             }
         });
 
-        deletebtn.setOnClickListener(new View.OnClickListener() {
-
-
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // 여기서 this는 Activity의 this
 
+// 여기서 부터는 알림창의 속성 설정
+                builder/*.setTitle("종료 확인 대화 상자") */        // 제목 설정
+                        .setMessage("시간표 등록을 취소하시겠습니까?")        // 메세지 설정
+                        .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            // 확인 버튼 클릭시 설정
+                            public void onClick(DialogInterface dialog, int whichButton) {
+//                                intent.putExtra("clicked", "false");
+//                                setResult(RESULT_OK, intent);
+                                finish();
+
+                            }
+                        })
+                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                            // 취소 버튼 클릭시 설정
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                dialog.cancel();
+                            }
+                        });
+
+                final AlertDialog dialog = builder.create();    // 알림창 객체 생성
+                dialog.show();    // 알림창 띄우기
+
+//                intent.putExtra("clicked","false");
+//                setResult(RESULT_OK, intent);
+//                finish();
+
+            }
+        });
+
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 intent.putExtra("clicked","false");
                 setResult(RESULT_OK, intent);
                 finish();
             }
         });
 
-        int color= intent.getIntExtra("colorpicker", 0);
+        int color = intent.getIntExtra("colorpicker", 0);
 
-        final Button color_picker = (Button)findViewById(R.id.color_picker);
-        final ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
-        colorPickerDialog.initialize(R.string.dialog_title, new int[]{Color.rgb(253,189,224),Color.rgb(207,232,128) ,
-                        Color.rgb(168,170,244), Color.rgb(253,243,146), Color.rgb(254,177,149),
-                        Color.rgb(240,240,238), Color.rgb(191,234,243), Color.rgb(112,177,199), Color.rgb(114,196,190),
-                        Color.rgb(245,159,160), Color.rgb(179,143,181),Color.rgb(255,204,204)},
-                color, 3, 2);
+                final Button color_picker = (Button) findViewById(R.id.color_picker);
+                final ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
+                colorPickerDialog.initialize(R.string.dialog_title, new int[]{Color.rgb(253, 189, 224), Color.rgb(207, 232, 128),
+                                Color.rgb(168, 170, 244), Color.rgb(253, 243, 146), Color.rgb(254, 177, 149),
+                                Color.rgb(240, 240, 238), Color.rgb(191, 234, 243), Color.rgb(112, 177, 199), Color.rgb(114, 196, 190),
+                                Color.rgb(245, 159, 160), Color.rgb(179, 143, 181), Color.rgb(255, 204, 204)},
+                        color, 3, 2);
 
-        colorPickerDialog.setOnColorSelectedListener(new ColorPickerSwatch.OnColorSelectedListener() {
-            @Override
-            public void onColorSelected(int color) {
-                findViewById(R.id.color_picker).setBackgroundColor(color);
-                //Toast.makeText(TimetableInput.this, "selectedColor : " + color, Toast.LENGTH_SHORT).show();
-                intent.putExtra("colorpicker", color);
+                colorPickerDialog.setOnColorSelectedListener(new ColorPickerSwatch.OnColorSelectedListener() {
+                    @Override
+                    public void onColorSelected(int color) {
+                        findViewById(R.id.color_picker).setBackgroundColor(color);
+                        //Toast.makeText(TimetableInput.this, "selectedColor : " + color, Toast.LENGTH_SHORT).show();
+                        intent.putExtra("colorpicker", color);
 
+                    }
+
+
+                });
+
+                color_picker.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        colorPickerDialog.show(getSupportFragmentManager(), "colorpicker");
+                    }
+                });
+
+                SharedPreferences sharedprefs = getSharedPreferences("Test", MODE_PRIVATE);
+                sharedprefs.edit().putInt("colorint", color).apply();
+
+            }//oncreate end
+
+
+            private TimePickerDialog showTimePickerDialog(int hour, int min, boolean is24Hour, TimePickerDialog.OnTimeSetListener listener) {
+                TimePickerDialog dialog = new TimePickerDialog(this, listener, hour, min, is24Hour);
+                dialog.show();
+                return dialog;
             }
 
 
-        });
+            private void updateTimeUI() {
+                String hour = (mSelectedHour > 9) ? "" + mSelectedHour : "0" + mSelectedHour;
+                String minutes = (mSelectedMinutes > 9) ? "" + mSelectedMinutes : "0" + mSelectedMinutes;
 
-        color_picker.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                colorPickerDialog.show(getSupportFragmentManager(), "colorpicker");
+                put_starttimechange.setText(hour + ":" + minutes);
             }
-        });
 
-        SharedPreferences sharedprefs = getSharedPreferences("Test", MODE_PRIVATE);
-        sharedprefs.edit().putInt("colorint" , color).apply();
+            final TimePickerDialog.OnTimeSetListener mOnTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+                public void onTimeSet(TimePicker view, int hour, int min) {
+                    // update the current variables (hour and minutes)
+                    mSelectedHour = hour;
+                    mSelectedMinutes = min;
 
-    }//oncreate end
+                    // update txtTime with the selected time
+                    updateTimeUI();
+                }
+            };
+
+            private void updateTimeUI1() {
+                String hour = (mSelectedHourplus > 9) ? "" + mSelectedHourplus : "0" + mSelectedHourplus;
+                String minutes = (mSelectedMinutesplus > 9) ? "" + mSelectedMinutesplus : "0" + mSelectedMinutesplus;
+                put_endtimechange.setText(hour + ":" + minutes);
+            }
 
 
-    private TimePickerDialog showTimePickerDialog(int hour, int min, boolean is24Hour, TimePickerDialog.OnTimeSetListener listener) {
-        TimePickerDialog dialog = new TimePickerDialog(this, listener, hour, min, is24Hour);
-        dialog.show();
-        return dialog;
-    }
+            final TimePickerDialog.OnTimeSetListener mOnTimeSetListener1 = new TimePickerDialog.OnTimeSetListener() {
+                public void onTimeSet(TimePicker view, int hour, int min) {
+                    // update the current variables (hour and minutes)
+                    mSelectedHourplus = hour;
+                    mSelectedMinutesplus = min;
 
-
-    private void updateTimeUI() {
-        String hour = (mSelectedHour > 9) ? ""+mSelectedHour: "0"+mSelectedHour ;
-        String minutes = (mSelectedMinutes > 9) ?""+mSelectedMinutes : "0"+mSelectedMinutes;
-
-        put_starttimechange.setText(hour + ":" + minutes);
-    }
-
-    final TimePickerDialog.OnTimeSetListener mOnTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
-        public void onTimeSet(TimePicker view, int hour, int min) {
-            // update the current variables (hour and minutes)
-            mSelectedHour = hour;
-            mSelectedMinutes = min;
-
-            // update txtTime with the selected time
-            updateTimeUI();
+                    // update txtTime with the selected time
+                    updateTimeUI1();
+                }
+            };
         }
-    };
-    private void updateTimeUI1() {
-        String hour = (mSelectedHourplus > 9) ? ""+mSelectedHourplus: "0"+mSelectedHourplus ;
-        String minutes = (mSelectedMinutesplus > 9) ?""+mSelectedMinutesplus : "0"+mSelectedMinutesplus;
-        put_endtimechange.setText(hour + ":" + minutes);
-    }
-
-
-    final TimePickerDialog.OnTimeSetListener mOnTimeSetListener1 = new TimePickerDialog.OnTimeSetListener() {
-        public void onTimeSet(TimePicker view, int hour, int min) {
-            // update the current variables (hour and minutes)
-            mSelectedHourplus = hour;
-            mSelectedMinutesplus = min;
-
-            // update txtTime with the selected time
-            updateTimeUI1();
-        }
-    };
-}
 
 
 

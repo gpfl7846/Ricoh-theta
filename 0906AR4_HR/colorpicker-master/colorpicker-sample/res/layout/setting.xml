@@ -1,68 +1,267 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/relative"
     android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:padding="20dip">
+    android:gravity="center"
+    android:paddingLeft="10dp"
+    android:paddingBottom="10dp"
+    android:paddingRight="10dp"
+    android:background="#ffffff">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="개강한 날짜 : "
-        android:id="@+id/tv_date"
-        android:padding="10dp"
-        android:layout_gravity="left" />
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageView2"
+        android:background="@drawable/ic_logo"
+        android:layout_marginBottom="20dp" />
 
-    <DatePicker
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:calendarViewShown="false"
-        android:spinnersShown="true"
-        android:id="@+id/datePicker" />
-
-    <Button
-        android:id="@+id/loginBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#fff"
-        android:textStyle="bold"
-        android:text="Connect with Dropbox" />
-
-    <Button
-        android:id="@+id/uploadFileBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#fff"
-        android:textStyle="bold"
-        android:text="File Upload"  />
-
-    <Button
-        android:id="@+id/listFilesBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#fff"
-        android:textStyle="bold"
-        android:text="List Files"/>
-
-    <ScrollView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp" >
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="#b2d8e1"
+        android:paddingBottom="4dp"
+        android:id="@+id/linear0"
+
+        android:gravity="center_horizontal">
 
         <LinearLayout
-            android:id="@+id/container_files"
+            android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:textColor="#fff"
-            android:orientation="vertical"
-            >
-        </LinearLayout>
-    </ScrollView>
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="#ffffff"
+            android:id="@+id/linear1"
 
+            android:gravity="center_horizontal"
+            android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="개강 날짜"
+            android:gravity="center_horizontal"
+            android:background="#ffffff"
+            android:layout_weight="0.3"
+            android:autoText="true"
+            android:layout_marginLeft="5dp" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:background="#ffffff"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="종강 날"
+            android:gravity="center_horizontal"
+            android:layout_gravity="bottom"
+            android:layout_weight="0.3"
+            android:background="#ffffff"
+            android:layout_marginRight="5dp" />
+
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="#ffffff"-->
+            <!--android:padding="5dp"-->
+            <!--android:text="개강날짜"-->
+            <!--android:gravity="left"-->
+            <!--android:id="@+id/" />-->
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="#b2d8e1"
+            android:paddingBottom="4dp"
+            android:id="@+id/linear2"
+
+            android:gravity="center_horizontal"
+            android:paddingTop="5dp">
+            <Button
+                android:id="@+id/btn_start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/black"
+                android:layout_weight="0.3"
+                android:textStyle="bold"
+                android:background="#ffffff"
+                android:layout_marginLeft="5dp"
+                android:hint="2015-03-02" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                />
+            <Button
+                android:id="@+id/btn_end_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_weight="0.3"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:background="#ffffff"
+                android:layout_marginRight="5dp"
+                android:hint="2015-06-28" />
+        </LinearLayout>
+    </LinearLayout>
+
+           <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="#b2d8e1"
+            android:paddingBottom="4dp"
+            android:id="@+id/linear4"
+            android:gravity="center_horizontal">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="#b2d8e1"
+                android:paddingBottom="4dp"
+
+
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dropbox 동기화"
+                    android:gravity="center_horizontal"
+                    android:background="#ffffff"
+                    android:layout_weight="0.3"
+                    android:padding="10dp"
+                    android:id="@+id/btn_dropbox" />
+
+            </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:background="#b2d8e1"
+    android:paddingBottom="4dp"
+    android:id="@+id/linear3"
+    android:gravity="center_horizontal">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:background="#b2d8e1"
+        android:paddingBottom="4dp"
+
+
+        android:gravity="center_horizontal">
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="자동 녹음"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:background="#ffffff"-->
+            <!--android:layout_weight="0.3"-->
+            <!--android:padding="10dp"-->
+         <!--/>-->
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textOn="지동 녹음 ON"
+            android:textOff="자동 녹음 OFF"
+            android:id="@+id/btn_auto"
+            android:layout_alignParentRight="true"
+            android:background="#ffffff"
+            android:layout_weight="0.3" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="#b2d8e1"
+        android:paddingBottom="4dp"
+        android:id="@+id/linear5"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="#b2d8e1"
+            android:paddingBottom="4dp"
+
+
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="몇 초전"
+                android:gravity="center_horizontal"
+                android:background="#ffffff"
+                android:layout_weight="0.3"
+                android:padding="10dp"
+                android:id="@+id/btn_before" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="#b2d8e1"
+        android:paddingBottom="4dp"
+        android:id="@+id/linear6"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="#b2d8e1"
+            android:paddingBottom="4dp"
+
+
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="개발자 정보"
+                android:gravity="center_horizontal"
+                android:background="#ffffff"
+                android:layout_weight="0.3"
+                android:padding="10dp"
+                android:id="@+id/btn_del_info" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 </LinearLayout>

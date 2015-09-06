@@ -11,28 +11,74 @@
         android:orientation="vertical"
         tools:context=".Timetable"
         android:layout_height="wrap_content">
-
-        <!--Button of timetalbe / listview -->
         <LinearLayout
+            android:id="@+id/linear0"
             android:layout_width="fill_parent"
-            android:orientation="horizontal"
-            tools:context=".Timetable"
-            android:layout_height="fill_parent">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/timetableshow"
-                android:layout_width="wrap_content"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="시간표" />
+                android:layout_weight="0.4"
+                android:background="#98c6c4"
+                android:layout_alignParentLeft="true"
+                android:text="시간표"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp" />
+
             <Button
                 android:id="@+id/listshow"
-                android:layout_width="wrap_content"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="0.4"
+                android:background="#98c6c4"
                 android:text="리스트"
+                android:layout_toRightOf="@id/timetableshow"
+
                 android:layout_gravity="center_horizontal" />
+
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
+
+            <ToggleButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:textOn=""
+                android:textOff=""
+                android:background="@drawable/btn_favorite_bg"
+                android:id="@+id/toggleButton"
+
+
+                android:layout_alignParentRight="true"/>
+
         </LinearLayout>
+
+        <!--Button of timetalbe / listview -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+
+
+
+        </RelativeLayout>
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:orientation="horizontal"-->
+            <!--tools:context=".Timetable"-->
+            <!--android:layout_height="fill_parent">-->
+
+            <!-- -->
+        <!--</LinearLayout>-->
 
 
         <!--Timetable -->
@@ -49,12 +95,6 @@
                 tools:context=".Timetable"
                 >
 
-                <ToggleButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New ToggleButton"
-                    android:id="@+id/toggleButton"
-                    android:layout_above="@+id/lay_time"/>
 
                 <TableLayout
                     android:layout_width="match_parent"

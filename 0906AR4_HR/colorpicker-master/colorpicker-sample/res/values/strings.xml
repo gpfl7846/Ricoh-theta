@@ -13,6 +13,9 @@
     <string name="stop_recording">Stop</string>
     <string name="audio_format">Format</string>
     <string name="timetable" />
+    <string name="name">박진희 이혜리 한아름</string>
+    <string name="school">Sookmyung Women\'s University</string>
+    <string name="professor">지도 교수 :박영호 교수님</string>
 
 
 </resources>

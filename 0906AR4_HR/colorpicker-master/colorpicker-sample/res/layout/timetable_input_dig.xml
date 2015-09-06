@@ -4,147 +4,257 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:padding="5pt"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+
     tools:context=".Timetable">
-
     <LinearLayout
-        android:id="@+id/linear1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:id="@+id/linear0"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#98c6c4">
 
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_back"
+            android:layout_toRightOf="@id/timetableshow"
+            android:clickable="true" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="강 의 명  :"
-            android:textColor="#000000"
-            android:textSize="15dp" />
-
-        <EditText
-            android:id="@+id/input_subject"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="강의명을 입력하세요."
+            android:text="추가"
             />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/linear2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="강 의 실  :"
-            android:textColor="#000000"
-            android:textSize="15dp" />
-
-        <EditText
-            android:id="@+id/input_classroom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:ems="10"
-            android:hint="강의실을 입력하세요."
             />
 
+        <Button
+            android:id="@+id/add"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_check"
+             />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linear3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:padding="5pt"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
 
-        <TextView
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:text="요일"
+                    android:gravity="center_horizontal"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal">
+
+                <CheckBox
+                    android:id="@+id/week1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="월" />
+
+                <CheckBox
+                    android:id="@+id/week2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="화" />
+
+                <CheckBox
+                    android:id="@+id/week3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="수" />
+
+                <CheckBox
+                    android:id="@+id/week4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="목" />
+
+                <CheckBox
+                    android:id="@+id/week5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="금" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="시작 시간"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="0.3"
+                    />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.1"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="종료 시간"
+                    android:gravity="center_horizontal"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="0.3"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal">
+                <Button
+                    android:id="@+id/start_time_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/black"
+                    android:layout_weight="0.3"
+                    android:textStyle="bold" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.1"
+                    />
+                <Button
+                    android:id="@+id/end_time_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_weight="0.3"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="시간  :"
-            android:textColor="#000000"
-            android:textSize="15dp" />
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal">
 
-        <Button
-            android:id="@+id/start_time_btn"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="강 의 명  :"
+                android:textColor="#000000"
+                android:textSize="15dp" />
+
+            <EditText
+                android:id="@+id/input_subject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="강의명을 입력하세요."
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/black"
+            android:layout_margin="10dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal">
 
-            android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="강 의 실  :"
+                android:textColor="#000000"
+                android:textSize="15dp" />
+
+            <EditText
+                android:id="@+id/input_classroom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="강의실을 입력하세요."
+                />
 
 
-        <Button
-            android:id="@+id/end_time_btn"
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/linear3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginLeft="30dp">
 
-            android:textColor="@android:color/black"
-            android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="시간표 색상  :"
+                android:textColor="#000000"
+                android:textSize="15dp"
+                android:layout_margin="10dp" />
 
-        <Button
-            android:id="@+id/color_picker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="색깔 선택"
-            android:textColor="@android:color/black"
-            android:textStyle="bold" />
-        <Button
-            android:id="@+id/deletebtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="삭제"
-            android:textColor="@android:color/black"
-            android:textStyle="bold" />
 
+
+            <Button
+                android:id="@+id/color_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="색상 선택"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+        </LinearLayout>
     </LinearLayout>
-    <CheckBox
-        android:id="@+id/week1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="월" />
-    <CheckBox
-        android:id="@+id/week2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="화" />
-    <CheckBox
-        android:id="@+id/week3"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="수" />
-    <CheckBox
-        android:id="@+id/week4"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="목" />
-    <CheckBox
-        android:id="@+id/week5"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="금" />
 
-    <Button
-        android:id="@+id/savebtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="저장"
-        android:textColor="@android:color/black"
-        android:textStyle="bold" />
 
 </LinearLayout>

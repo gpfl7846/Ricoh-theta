@@ -30,7 +30,6 @@ public class RecordTimeTable_Helper extends SQLiteOpenHelper {
         db = this.getWritableDatabase();
     }
 
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         // TODO Auto-generated method stub
@@ -84,7 +83,7 @@ public class RecordTimeTable_Helper extends SQLiteOpenHelper {
     //DB에 데이터 더하기
     //id + 과목 + 강의 실명   --> 여기에 시간까지 더하기
     public void add(int id, String a, String b,String c,String d,int e,
-                    String mon,String tues,String wednes,String thurs,String fri,String sat, String sun){
+                    String mon,String tues,String  wednes,String thurs,String  fri,String sat, String sun){
         ContentValues val = new ContentValues();
         val.put("_id", id);
         val.put("subject", a);
@@ -103,11 +102,10 @@ public class RecordTimeTable_Helper extends SQLiteOpenHelper {
         search_data();
     }
 
-
     //DB 업데이트 하기??
     // db값이 변경되었을 때 다시 불러오는 함수
     public void update(long rawId, String a, String b,String c,String d,int e,
-                       String mon,String tues,String wednes,String thurs,String fri,String sat, String sun){
+                       String mon,String tues,String  wednes,String thurs,String  fri,String sat, String sun){
         ContentValues val = new ContentValues();
         val.put("_id", rawId);
         val.put("subject", a);

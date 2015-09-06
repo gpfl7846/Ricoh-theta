@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -41,10 +43,10 @@ public class TimetableInput extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timetable_input_dig);
-        Button savebtn = (Button) findViewById(R.id.savebtn);
+        Button savebtn = (Button) findViewById(R.id.add);
         StartTime = (Button) findViewById(R.id.start_time_btn);
         EndTime = (Button) findViewById(R.id.end_time_btn);
-        Button deletebtn = (Button) findViewById(R.id.deletebtn);
+        Button deletebtn = (Button) findViewById(R.id.cancel);
         final Intent intent = getIntent();
         String date = intent.getStringExtra("date");
         StartTime.setText(date);
@@ -176,6 +178,7 @@ public class TimetableInput extends FragmentActivity {
 
         });// touch save button
 
+
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         deletebtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,13 +187,13 @@ public class TimetableInput extends FragmentActivity {
 
 // 여기서 부터는 알림창의 속성 설정
                 builder/*.setTitle("종료 확인 대화 상자") */        // 제목 설정
-                        .setMessage("일정을 삭제하시겠습니까?")        // 메세지 설정
+                        .setMessage("시간표 등록을 취소하시겠습니까?")        // 메세지 설정
                         .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
                         .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             // 확인 버튼 클릭시 설정
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                intent.putExtra("clicked", "false");
-                                setResult(RESULT_OK, intent);
+//                                intent.putExtra("clicked", "false");
+//                                setResult(RESULT_OK, intent);
                                 finish();
 
                             }
@@ -218,7 +221,6 @@ public class TimetableInput extends FragmentActivity {
         //시작하는 시간을 저장
         StartTime.setOnClickListener(new View.OnClickListener() {
 
-
             @Override
             public void onClick(View v) {
 
@@ -226,6 +228,7 @@ public class TimetableInput extends FragmentActivity {
 
             }
         });
+
 
         //끝나는 시간을 지정하는 리스너
         EndTime.setOnClickListener(new View.OnClickListener() {
@@ -271,6 +274,8 @@ public class TimetableInput extends FragmentActivity {
             }
         });
     }//oncreate마지막
+
+
 
     //timepicker 지정하는 함수인데 아직 실행 안됨
     private void setOpeningAndClosingTimes() {
@@ -334,8 +339,40 @@ public class TimetableInput extends FragmentActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+       // getMenuInflater().inflate(R.menu.main, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_activity_actions, menu);
+
+        return super.onCreateOptionsMenu(menu);
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Take appropriate action for each action item click
+        switch (item.getItemId()) {
+            case R.id.ic_check:
+                // search action
+                return true;
+//            case R.id.action_location_found:
+//                // location found
+//                LocationFound();
+//                return true;
+//            case R.id.action_refresh:
+//                // refresh
+//                return true;
+//            case R.id.action_help:
+//                // help action
+//                return true;
+//            case R.id.action_check_updates:
+//                // check for updates action
+//                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    private void LocationFound() {
+
+
     }
 
 

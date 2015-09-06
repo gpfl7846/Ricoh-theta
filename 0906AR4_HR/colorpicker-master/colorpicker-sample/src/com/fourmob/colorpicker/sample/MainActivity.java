@@ -30,14 +30,14 @@ public class MainActivity extends TabActivity {
 		//spec = tabHost.newTabSpec("library_browser");
 		tabHost.addTab(spec);
 
-		intent = new Intent().setClass(this, Dropboxmain.class);
+		intent = new Intent().setClass(this, SettingsActivity.class);
 		spec = tabHost.newTabSpec("설정").setIndicator(res.getString(R.string.timetable), res.getDrawable(R.drawable.ic_tab_three)).setContent(intent);
 		// spec = tabHost.newTabSpec("file_browser");
 		tabHost.addTab(spec);
 
-		tabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.parseColor("#de4e43"));
-		tabHost.getTabWidget().getChildAt(1).setBackgroundColor(Color.parseColor("#de4e43"));
-		tabHost.getTabWidget().getChildAt(2).setBackgroundColor(Color.parseColor("#de4e43"));
+		tabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.parseColor("#b2d8e1"));
+		tabHost.getTabWidget().getChildAt(1).setBackgroundColor(Color.parseColor("#b2d8e1"));
+		tabHost.getTabWidget().getChildAt(2).setBackgroundColor(Color.parseColor("#b2d8e1"));
 
 
 		tabHost.setCurrentTab(0);

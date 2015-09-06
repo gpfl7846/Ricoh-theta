@@ -49,7 +49,7 @@ public class Dropboxmain extends Activity implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.setting);
+		setContentView(R.layout.dropboxupload);
 		RecordTimeTable_Helper helper
 				= new RecordTimeTable_Helper(Dropboxmain.this);
 

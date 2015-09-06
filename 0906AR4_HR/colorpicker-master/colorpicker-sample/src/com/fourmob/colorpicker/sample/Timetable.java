@@ -23,20 +23,16 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
-
+import com.fourmob.colorpicker.sample.PlayerService.PlayerBinder;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Iterator;
 
 
 public class Timetable extends Activity implements OnClickListener {
-    public Calendar CLASS_TIME,OPEN_TIME, START_TIME, END_TIME, NOW_TIME,COM_TIME_START,COM_TIME_END;
 
-    private int mHour;
-    private int mMinute;
-    private int mSecond;
     private PlayerService playerService;
     private boolean mBound = false;
     private final String tag = "timetable.class";
@@ -81,7 +77,7 @@ public class Timetable extends Activity implements OnClickListener {
 
         @Override
         public void onServiceConnected(ComponentName arg0, IBinder service) {
-          PlayerService.PlayerBinder playerBinder = (PlayerService.PlayerBinder)service;
+            PlayerBinder playerBinder = (PlayerBinder)service;
             Timetable.this.playerService = playerBinder.getService();
             // boundService = boundBinder.getService();
             mBound=true;
@@ -124,8 +120,6 @@ public class Timetable extends Activity implements OnClickListener {
         helper.search_data();
 
 
-
-
         //요일의 레이아웃을 어떻게 그릴 지 설정
         @SuppressWarnings("deprecation")
         LayoutParams params_2 = new LayoutParams(
@@ -148,7 +142,6 @@ public class Timetable extends Activity implements OnClickListener {
         params_1.setMargins(1, 1, 1, 1);
         params_1.gravity = 1; //표가 뒤틀리는 것을 방지
 
-
         //레이아웃 배열로 선언
         lay_time = (LinearLayout) findViewById(R.id.lay_time);
         final LinearLayout lay[] = new LinearLayout[10];
@@ -168,7 +161,7 @@ public class Timetable extends Activity implements OnClickListener {
             day[i] = new TextView(this);
             day[i].setText(day_line[i]);//텍스트에 보여줄 내용
             day[i].setGravity(Gravity.CENTER);//정렬
-            day[i].setBackgroundColor(Color.parseColor("#FAF4C0"));//배경색
+            day[i].setBackgroundColor(Color.parseColor("#E8EAEF"));//배경색
             day[i].setTextSize(10);//글자크기
             lay_time.addView(day[i], params_2);//레이아웃에 출력
         }
@@ -213,6 +206,7 @@ public class Timetable extends Activity implements OnClickListener {
 
                 timetableview.setVisibility(View.VISIBLE);
                 timetablelist.setVisibility(View.GONE);
+                toggle.setVisibility(View.VISIBLE);
 
 
             }
@@ -227,7 +221,7 @@ public class Timetable extends Activity implements OnClickListener {
 
                 timetableview.setVisibility(View.GONE);
                 timetablelist.setVisibility(View.VISIBLE);
-
+                toggle.setVisibility(View.GONE);
                 //adapter.notifyDataSetChanged();
 
             }
@@ -240,6 +234,7 @@ public class Timetable extends Activity implements OnClickListener {
         for (int i = 0, id = 0; i < lay.length; i++) { //10개 id 바꾸기
             for (int j = 1; j < day_line.length; j++) { //6개
                 inputdata[id] = new TextView(this);
+
                 inputdata[id].setId(id);//data[0]  =  0
                 //inputdata[id].setText(time_when[i]); // 시간 9:00- 18:00
                 inputdata[id].setOnClickListener(this);
@@ -258,9 +253,8 @@ public class Timetable extends Activity implements OnClickListener {
                     db_wednes = cur.getString(8);
                     db_thus = cur.getString(9);
                     db_fri = cur.getString(10);
-                    db_sat = cur.getString(10);
-                    db_sun = cur.getString(10);
-
+                    db_sat = cur.getString(11);
+                    db_sun = cur.getString(12);
                     arrayList.add(db_subject);
                     if (inputdata[id].getId() == db_id) {
                         //timetable에 보여주는 과목이다.
@@ -296,6 +290,8 @@ public class Timetable extends Activity implements OnClickListener {
         listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
 
+
+
         /* 리스트뷰 클릭시 인텐트호출 */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -303,7 +299,7 @@ public class Timetable extends Activity implements OnClickListener {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent intent = new Intent(Timetable.this, TimetableRecordlistActivity.class);
-                intent.putExtra("subject","ㅋㅋㅋ");
+                intent.putExtra("subject", "MultiPlayer"); //과목명 전달해야하는데 못하겠음 ㅠㅠ -진히
                 startActivity(intent);
             }
 
@@ -384,6 +380,8 @@ public class Timetable extends Activity implements OnClickListener {
                                     intent.putExtra("starttime", c.getString(3));
                                     intent.putExtra("endtime", c.getString(4));
                                     intent.putExtra("colorpicker", c.getInt(5));
+
+
                                     intent.putExtra("monday_boolean", c.getString(6));
                                     intent.putExtra("tuesday_boolean", c.getString(7));
                                     intent.putExtra("wednesday_boolean", c.getString(8));
@@ -452,6 +450,22 @@ public class Timetable extends Activity implements OnClickListener {
                                     intent.putExtra("starttime", c.getString(3));
                                     intent.putExtra("endtime", c.getString(4));
                                     intent.putExtra("colorpicker", c.getInt(5));
+                                    String subject = c.getString(1);
+
+                                    Toast.makeText(Timetable.this,subject,Toast.LENGTH_SHORT).show(); //까페
+
+//                                    String str = songManager.getPath();
+//                                    Toast.makeText(Timetable.this, str, Toast.LENGTH_SHORT).show();//이닛
+
+                                    playerService.setPlayList(subject);
+                                    Toast.makeText(Timetable.this,subject,Toast.LENGTH_SHORT).show();//까페
+
+                                    // String str = playerService.getPath();
+                                    //  Toast.makeText(Timetable.this, str, Toast.LENGTH_SHORT).show();//까페
+
+
+
+
                                     break;
                                 }
 
@@ -691,6 +705,41 @@ public class Timetable extends Activity implements OnClickListener {
         }
 
     }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent playerServiceIntent = new Intent(this, PlayerService.class);
+        getApplicationContext().bindService(playerServiceIntent, playerServiceConnection, Context.BIND_AUTO_CREATE);
+        //Toast.makeText(Timetable.this(), mBound, Toast.LENGTH_SHORT).show();
+        if(mBound){
+            Toast.makeText(Timetable.this, "시발", Toast.LENGTH_SHORT).show();//까페
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(mBound){
+            getApplicationContext().unbindService(playerServiceConnection);
+            mBound=false;
+        }
+
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
 
 
 
