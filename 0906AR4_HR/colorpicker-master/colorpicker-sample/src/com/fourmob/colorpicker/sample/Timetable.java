@@ -27,6 +27,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import com.fourmob.colorpicker.sample.PlayerService.PlayerBinder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -48,7 +49,8 @@ public class Timetable extends Activity implements OnClickListener {
     //리스트로 보기 변수
 
     ListView listView;
-    ArrayList<String> arrayList = new ArrayList<String>(); //중복검사대상 어레이리스트
+  //  ArrayList<String> arrayList = new ArrayList<String>(); //중복검사대상 어레이리스트
+    HashMap<Integer,String> list = new HashMap<>();
 
     ArrayAdapter<String> adapter;
     //Button btnAdd;
@@ -118,6 +120,8 @@ public class Timetable extends Activity implements OnClickListener {
 
 
         helper.search_data();
+
+
 
 
         //요일의 레이아웃을 어떻게 그릴 지 설정
@@ -255,7 +259,8 @@ public class Timetable extends Activity implements OnClickListener {
                     db_fri = cur.getString(10);
                     db_sat = cur.getString(11);
                     db_sun = cur.getString(12);
-                    arrayList.add(db_subject);
+                    //arrayList.add(db_subject);
+                    list.put(db_id,db_subject);
                     if (inputdata[id].getId() == db_id) {
                         //timetable에 보여주는 과목이다.
                         inputdata[id].setText(db_subject + "\n" + db_classroom);
@@ -278,8 +283,8 @@ public class Timetable extends Activity implements OnClickListener {
 
 
         ArrayList result_List = new ArrayList(); //결과를 담을 어레이리스트
-        HashSet hs = new HashSet(arrayList);
-
+        HashSet hs = new HashSet(list.values());
+        Log.v("subject", "과목만 가지고오기"+String.valueOf(list.values()));
         Iterator it = hs.iterator();
         while (it.hasNext()) {
             result_List.add(it.next());
@@ -299,7 +304,7 @@ public class Timetable extends Activity implements OnClickListener {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent intent = new Intent(Timetable.this, TimetableRecordlistActivity.class);
-                intent.putExtra("subject", "MultiPlayer"); //과목명 전달해야하는데 못하겠음 ㅠㅠ -진히
+                intent.putExtra("subject", (String) listView.getItemAtPosition(position)); //과목명 전달해야하는데 못하겠음 ㅠㅠ -진히
                 startActivity(intent);
             }
 
@@ -307,7 +312,7 @@ public class Timetable extends Activity implements OnClickListener {
         });
 
         //리스트
-
+       Log.v("subject", String.valueOf(list));
 
 
 
@@ -637,10 +642,12 @@ public class Timetable extends Activity implements OnClickListener {
 
 
                     //입력된 값을 리스트에 추가하기 위해서 하는 작업
-                    arrayList.add(subject);
+                   // arrayList.add(subject);
+                    list.put(id,subject);
                     // HashSet 데이터 형태로 생성되면서 중복 제거됨
-                    HashSet hs = new HashSet(arrayList);
+                    HashSet hs = new HashSet(list.values());
                     // ArrayList 형태로 다시 생성
+                    Log.v("subject", "추가된 거 과목만 가지고오기1  "+String.valueOf(list.values()));
 
                     ArrayList result_List = new ArrayList();
                     Iterator it = hs.iterator();
@@ -651,12 +658,7 @@ public class Timetable extends Activity implements OnClickListener {
                     listView.setAdapter(adapter);
 
                 }
-                //삭제를 눌렀을 경
-                else if (clicked.equals("false")) {
-                    helper.delete(id);
-                    inputdata[id].setText(null);
-                    inputdata[id].setBackgroundColor(Color.parseColor("#EAEAEA"));
-                }
+
             }
             //데이터가 있는 곳에서 수정을 할 경우
             else if (requestCode == 2) {
@@ -688,12 +690,44 @@ public class Timetable extends Activity implements OnClickListener {
                     inputdata[id].setText(data.getStringExtra("" + subject + "\n" + classroom));
                     helper.update(get_id, subject, classroom, starttimechange, endtimechange, colorpicker,
                             monday_check, tuesday_check, wednesday_check, thursday_check, friday_check,saturday_boolean,sunday_boolean);
-
+                    inputdata[id].setBackgroundColor(colorpicker);
+                    inputdata[id].setText("" + subject + "\n" + classroom);
 
                 }
                 //삭제를 눌렀을 경우
                 else if (clicked.equals("false")) {
-                    helper.delete(id);
+                    //helper.delete(id);
+                    String subjectName = helper.subjectName(get_id);
+                    Log.v("subject","id값이 뭐지 :"+get_id);
+                    Log.v("subject","삭제할 과목명 :"+subjectName);
+                    ArrayList<Integer> Idlist =helper.AllsubjectId(subjectName);
+
+                    for(int l:Idlist){
+                        Log.v("subject", "내가 삭제할 l값:" + l);
+                        Log.v("subject", "내가 삭제할 l값의 과목명 :" + helper.subjectName(l));
+                        helper.delete(l);
+                        inputdata[l].setText(null);
+                        inputdata[l].setBackgroundColor(Color.parseColor("#EAEAEA"));
+                        //list.put(id,subject);
+                        list.remove(l);
+
+
+                    }
+
+
+                    HashSet hs = new HashSet(list.values());
+                    // ArrayList 형태로 다시 생성
+                    Log.v("subject", "추가된 거 과목만 가지고오기"+String.valueOf(list.values()));
+
+                    ArrayList result_List = new ArrayList();
+                    Iterator it = hs.iterator();
+                    while (it.hasNext()) {
+                        result_List.add(it.next());
+                    }
+                    adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, result_List);
+                    listView.setAdapter(adapter);
+
+
                     inputdata[id].setText(null);
                     inputdata[id].setBackgroundColor(Color.parseColor("#EAEAEA"));
                 }

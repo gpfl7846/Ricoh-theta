@@ -10,6 +10,22 @@
         <option name="packageNamePattern" value="" />
         <option name="pid" value="" />
       </filter>
+      <filter>
+        <option name="logLevel" value="verbose" />
+        <option name="logMessagePattern" value="" />
+        <option name="logTagPattern" value="list" />
+        <option name="name" value="list" />
+        <option name="packageNamePattern" value="" />
+        <option name="pid" value="" />
+      </filter>
+      <filter>
+        <option name="logLevel" value="verbose" />
+        <option name="logMessagePattern" value="" />
+        <option name="logTagPattern" value="subject" />
+        <option name="name" value="subject" />
+        <option name="packageNamePattern" value="" />
+        <option name="pid" value="" />
+      </filter>
     </filters>
   </component>
   <component name="AndroidLayouts">
@@ -18,7 +34,6 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="AndroidRuntime" />
   </component>
   <component name="ChangeListManager">
@@ -43,120 +58,63 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Timetable.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Timetable.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/Timetable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.1111112">
-              <caret line="90" column="3" selection-start-line="90" selection-start-column="3" selection-end-line="93" selection-end-column="0" />
+            <state vertical-scroll-proportion="9.1875">
+              <caret line="305" column="22" selection-start-line="305" selection-start-column="22" selection-end-line="305" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#3939#3971#1" expanded="true" />
+                <element signature="e#4349#4381#1" expanded="true" />
+                <element signature="e#10528#10942#0" expanded="true" />
+                <element signature="e#10941#10942#0" expanded="true" />
+                <element signature="e#31862#31894#0" expanded="true" />
+                <element signature="e#32118#32150#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SettingsActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/SettingsActivity.java">
+      <file leaf-file-name="TimetableChange.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/TimetableChange.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.31853282">
-              <caret line="11" column="37" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
-              <folding>
-                <element signature="e#2091#2306#0" expanded="true" />
-                <element signature="e#2305#2306#0" expanded="true" />
-                <element signature="e#2374#2587#0" expanded="true" />
-                <element signature="e#2586#2587#0" expanded="true" />
-                <element signature="e#2652#2964#0" expanded="true" />
-                <element signature="e#2963#2964#0" expanded="true" />
-                <element signature="e#3032#3269#0" expanded="true" />
-                <element signature="e#3268#3269#0" expanded="true" />
-                <element signature="e#3467#4211#0" expanded="true" />
-                <element signature="e#3705#4059#0" expanded="true" />
-                <element signature="e#4058#4059#0" expanded="true" />
-                <element signature="e#4210#4211#0" expanded="true" />
-                <element signature="e#4276#4589#0" expanded="true" />
-                <element signature="e#4588#4589#0" expanded="true" />
-                <element signature="e#5179#5625#0" expanded="true" />
-                <element signature="e#5624#5625#0" expanded="true" />
-                <element signature="e#5707#6157#0" expanded="true" />
-                <element signature="e#6156#6157#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dropboxupload.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/colorpicker-master/colorpicker-sample/res/layout/dropboxupload.xml">
-          <provider selected="true" editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-              <folding>
-                <element signature="e#366#581#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="develop_info.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/colorpicker-master/colorpicker-sample/res/layout/develop_info.xml">
-          <provider selected="true" editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="18" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-              <folding>
-                <element signature="e#435#650#0" expanded="false" />
-                <element signature="e#1493#1507#0" expanded="true" />
-                <element signature="e#1862#1878#0" expanded="true" />
-                <element signature="e#2234#2253#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Developer_Info.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/Developer_Info.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="12" column="44" selection-start-line="12" selection-start-column="44" selection-end-line="12" selection-end-column="44" />
+            <state vertical-scroll-proportion="-5.185185">
+              <caret line="191" column="15" selection-start-line="191" selection-start-column="15" selection-end-line="191" selection-end-column="15" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#6558#7290#0" expanded="true" />
+                <element signature="e#7289#7290#0" expanded="true" />
+                <element signature="e#12443#12857#0" expanded="true" />
+                <element signature="e#12856#12857#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="setting.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/colorpicker-master/colorpicker-sample/res/layout/setting.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
+      <file leaf-file-name="TimetableInput.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/TimetableInput.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.428571">
-              <caret line="24" column="17" selection-start-line="0" selection-start-column="0" selection-end-line="266" selection-end-column="15" />
-              <folding />
+            <state vertical-scroll-proportion="-11.851851">
+              <caret line="138" column="22" selection-start-line="138" selection-start-column="20" selection-end-line="138" selection-end-column="22" />
+              <folding>
+                <element signature="e#3940#6067#0" expanded="true" />
+                <element signature="e#6066#6067#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/colorpicker-master/colorpicker-sample/AndroidManifest.xml">
+      <file leaf-file-name="RecordTimeTable_Helper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/RecordTimeTable_Helper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="114" column="32" selection-start-line="114" selection-start-column="32" selection-end-line="114" selection-end-column="32" />
+            <state vertical-scroll-proportion="-4.3333335">
+              <caret line="448" column="53" selection-start-line="448" selection-start-column="46" selection-end-line="448" selection-end-column="53" />
               <folding>
-                <element signature="e#1014#1032#0" expanded="true" />
-                <element signature="e#1199#1217#0" expanded="true" />
-                <element signature="e#2584#2602#0" expanded="true" />
-                <element signature="e#2717#2735#0" expanded="true" />
-                <element signature="e#2848#2866#0" expanded="true" />
-                <element signature="e#3105#3123#0" expanded="true" />
-                <element signature="e#3342#3360#0" expanded="true" />
-                <element signature="e#3573#3591#0" expanded="true" />
-                <element signature="e#3813#3831#0" expanded="true" />
+                <element signature="e#12239#12247#0" expanded="true" />
+                <element signature="e#12842#12850#0" expanded="true" />
+                <element signature="e#14204#14212#0" expanded="true" />
+                <element signature="e#15179#15188#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -186,7 +144,6 @@
         <option value="$PROJECT_DIR$/colorpicker-master/colorpicker-sample/res/layout/audio_recording3.xml" />
         <option value="$PROJECT_DIR$/colorpicker-master/colorpicker-sample/res/layout/audio_recording2.xml" />
         <option value="$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/SongsManager.java" />
-        <option value="$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/RecordTimeTable_Helper.java" />
         <option value="$PROJECT_DIR$/colorpicker-master/colorpicker-sample/res/drawable/btn_favorite_bg.xml" />
         <option value="$PROJECT_DIR$/colorpicker-master/colorpicker-sample/res/drawable/btn_favorite.xml" />
         <option value="$PROJECT_DIR$/colorpicker-master/colorpicker-sample/res/menu/activity_main_actions.xml" />
@@ -200,13 +157,14 @@
         <option value="$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/Dropboxmain.java" />
         <option value="$PROJECT_DIR$/colorpicker-master/colorpicker-sample/res/drawable/xml_border.xml" />
         <option value="$PROJECT_DIR$/colorpicker-master/colorpicker-sample/res/layout/setting.xml" />
-        <option value="$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/Timetable.java" />
         <option value="$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/TimetableInput.java" />
         <option value="$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/Developer_Info.java" />
         <option value="$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/SettingsActivity.java" />
         <option value="$PROJECT_DIR$/colorpicker-master/colorpicker-sample/res/layout/develop_info.xml" />
         <option value="$PROJECT_DIR$/colorpicker-master/colorpicker-sample/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/colorpicker-master/colorpicker-sample/res/layout/dropboxupload.xml" />
+        <option value="$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/RecordTimeTable_Helper.java" />
+        <option value="$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/Timetable.java" />
       </list>
     </option>
   </component>
@@ -241,6 +199,18 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="AndroidView">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MultiPlayer0817forProf" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -270,7 +240,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sample" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -285,28 +259,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MultiPlayer0817forProf" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="colorpicker-sample" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drawable" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -326,18 +278,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="AndroidView">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MultiPlayer0817forProf" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -594,18 +534,16 @@
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39730638" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.503231" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15319866" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.035353534" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44276094" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.099326596" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.49676898" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -616,6 +554,8 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -623,14 +563,14 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24071082" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32154882" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32154882" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
@@ -814,7 +754,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -830,19 +769,6 @@
         <state vertical-scroll-proportion="10.170455">
           <caret line="449" column="5" selection-start-line="449" selection-start-column="5" selection-end-line="449" selection-end-column="5" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/RecordTimeTable_Helper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="121" column="31" selection-start-line="121" selection-start-column="31" selection-end-line="121" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#12239#12247#0" expanded="false" />
-            <element signature="e#12842#12850#0" expanded="false" />
-            <element signature="e#14204#14212#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -930,46 +856,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.96889955">
-          <caret line="32" column="61" selection-start-line="32" selection-start-column="61" selection-end-line="32" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/TimetableChange.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45506692">
-          <caret line="319" column="0" selection-start-line="319" selection-start-column="0" selection-end-line="319" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#5203#5331#0" expanded="false" />
-            <element signature="e#5330#5331#0" expanded="false" />
-            <element signature="e#5375#5506#0" expanded="false" />
-            <element signature="e#5505#5506#0" expanded="false" />
-            <element signature="e#5556#5702#0" expanded="false" />
-            <element signature="e#5701#5702#0" expanded="false" />
-            <element signature="e#5750#5894#0" expanded="false" />
-            <element signature="e#5893#5894#0" expanded="false" />
-            <element signature="e#5967#6182#0" expanded="false" />
-            <element signature="e#6181#6182#0" expanded="false" />
-            <element signature="e#6259#6483#0" expanded="false" />
-            <element signature="e#6482#6483#0" expanded="false" />
-            <element signature="e#6558#7290#0" expanded="false" />
-            <element signature="e#7289#7290#0" expanded="false" />
-            <element signature="e#9955#10402#0" expanded="false" />
-            <element signature="e#10401#10402#0" expanded="false" />
-            <element signature="e#10454#10695#0" expanded="false" />
-            <element signature="e#10694#10695#0" expanded="false" />
-            <element signature="e#11612#12017#0" expanded="false" />
-            <element signature="e#12016#12017#0" expanded="false" />
-            <element signature="e#12443#12857#0" expanded="false" />
-            <element signature="e#12856#12857#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/colorpicker-master/colorpicker-sample/res/drawable/ic_logo.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -1025,7 +911,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1051,34 +936,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/Timetable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.1111112">
-          <caret line="90" column="3" selection-start-line="90" selection-start-column="3" selection-end-line="93" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/TimetableInput.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.4808044">
-          <caret line="187" column="21" selection-start-line="187" selection-start-column="21" selection-end-line="187" selection-end-column="21" />
-          <folding>
-            <element signature="e#7652#7653#0" expanded="false" />
-            <element signature="e#7719#7935#0" expanded="false" />
-            <element signature="e#7934#7935#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/colorpicker-master/colorpicker-sample/res/layout/setting.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.428571">
+        <state vertical-scroll-proportion="0.0">
           <caret line="24" column="17" selection-start-line="0" selection-start-column="0" selection-end-line="266" selection-end-column="15" />
           <folding />
         </state>
@@ -1098,17 +961,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="114" column="32" selection-start-line="114" selection-start-column="32" selection-end-line="114" selection-end-column="32" />
-          <folding>
-            <element signature="e#1014#1032#0" expanded="true" />
-            <element signature="e#1199#1217#0" expanded="true" />
-            <element signature="e#2584#2602#0" expanded="true" />
-            <element signature="e#2717#2735#0" expanded="true" />
-            <element signature="e#2848#2866#0" expanded="true" />
-            <element signature="e#3105#3123#0" expanded="true" />
-            <element signature="e#3342#3360#0" expanded="true" />
-            <element signature="e#3573#3591#0" expanded="true" />
-            <element signature="e#3813#3831#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1121,9 +974,6 @@
           <caret line="18" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding>
             <element signature="e#435#650#0" expanded="false" />
-            <element signature="e#1493#1507#0" expanded="true" />
-            <element signature="e#1862#1878#0" expanded="true" />
-            <element signature="e#2234#2253#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1141,29 +991,72 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8348624">
+          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/SettingsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31853282">
+        <state vertical-scroll-proportion="0.0">
           <caret line="11" column="37" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/RecordTimeTable_Helper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.3333335">
+          <caret line="448" column="53" selection-start-line="448" selection-start-column="46" selection-end-line="448" selection-end-column="53" />
           <folding>
-            <element signature="e#2091#2306#0" expanded="true" />
-            <element signature="e#2305#2306#0" expanded="true" />
-            <element signature="e#2374#2587#0" expanded="true" />
-            <element signature="e#2586#2587#0" expanded="true" />
-            <element signature="e#2652#2964#0" expanded="true" />
-            <element signature="e#2963#2964#0" expanded="true" />
-            <element signature="e#3032#3269#0" expanded="true" />
-            <element signature="e#3268#3269#0" expanded="true" />
-            <element signature="e#3467#4211#0" expanded="true" />
-            <element signature="e#3705#4059#0" expanded="true" />
-            <element signature="e#4058#4059#0" expanded="true" />
-            <element signature="e#4210#4211#0" expanded="true" />
-            <element signature="e#4276#4589#0" expanded="true" />
-            <element signature="e#4588#4589#0" expanded="true" />
-            <element signature="e#5179#5625#0" expanded="true" />
-            <element signature="e#5624#5625#0" expanded="true" />
-            <element signature="e#5707#6157#0" expanded="true" />
-            <element signature="e#6156#6157#0" expanded="true" />
+            <element signature="e#12239#12247#0" expanded="true" />
+            <element signature="e#12842#12850#0" expanded="true" />
+            <element signature="e#14204#14212#0" expanded="true" />
+            <element signature="e#15179#15188#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/TimetableInput.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.851851">
+          <caret line="138" column="22" selection-start-line="138" selection-start-column="20" selection-end-line="138" selection-end-column="22" />
+          <folding>
+            <element signature="e#3940#6067#0" expanded="true" />
+            <element signature="e#6066#6067#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/TimetableChange.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.185185">
+          <caret line="191" column="15" selection-start-line="191" selection-start-column="15" selection-end-line="191" selection-end-column="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#6558#7290#0" expanded="true" />
+            <element signature="e#7289#7290#0" expanded="true" />
+            <element signature="e#12443#12857#0" expanded="true" />
+            <element signature="e#12856#12857#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/colorpicker-master/colorpicker-sample/src/com/fourmob/colorpicker/sample/Timetable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="9.1875">
+          <caret line="305" column="22" selection-start-line="305" selection-start-column="22" selection-end-line="305" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3939#3971#1" expanded="true" />
+            <element signature="e#4349#4381#1" expanded="true" />
+            <element signature="e#10528#10942#0" expanded="true" />
+            <element signature="e#10941#10942#0" expanded="true" />
+            <element signature="e#31862#31894#0" expanded="true" />
+            <element signature="e#32118#32150#0" expanded="true" />
           </folding>
         </state>
       </provider>

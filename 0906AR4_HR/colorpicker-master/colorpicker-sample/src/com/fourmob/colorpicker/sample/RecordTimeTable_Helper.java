@@ -136,11 +136,8 @@ public class RecordTimeTable_Helper extends SQLiteOpenHelper {
         String sql = "select * from "+ db_table_name;
         Cursor cur = db.rawQuery(sql, null);
         cur.moveToFirst();
-
-
         //마지막 레코드인지 확인
         while(!cur.isAfterLast()){
-
             //cursor.getInt(or getString)(ȣ);
             String subject = cur.getString(1);
             String classroom = cur.getString(2);
@@ -152,6 +149,8 @@ public class RecordTimeTable_Helper extends SQLiteOpenHelper {
         }
         cur.close();
     }
+
+
 
     //DB에 있는 모든 것 가지고 오기
     public Cursor getAll(){
@@ -235,7 +234,7 @@ public class RecordTimeTable_Helper extends SQLiteOpenHelper {
         endTime = new Time(System.currentTimeMillis());
 
         int recordCount=cursor.getCount();
-        Log.i("ar", "recordCount : "+Integer.toString(recordCount));
+        Log.i("ar", "recordCount : " + Integer.toString(recordCount));
         for(int i=0; i<recordCount; i++){
             cursor.moveToNext();
             startime =cursor.getString(0);
@@ -295,7 +294,7 @@ public class RecordTimeTable_Helper extends SQLiteOpenHelper {
         for(int i=0; i<recordCount; i++){
             cursor.moveToNext();
             String str1=cursor.getString(0);
-            Log.i("AhReum", "file_id : " + str1 );
+            Log.i("AhReum", "file_id : " + str1);
             if( nowTime.after(startTime) && nowTime.before(endTime)) {
                 return_sub = Integer.parseInt(str1);
             }
@@ -428,5 +427,54 @@ public class RecordTimeTable_Helper extends SQLiteOpenHelper {
         cursor.close();
         return getAll;
     }
+
+    public String subjectName(int id){
+        String sql = "select subject "+
+                "from schedule "+
+                "where _id "+"like "+id+";";
+
+       String subject="";
+        Cursor cursor=db.rawQuery(sql, null);
+        int recordCount=cursor.getCount();
+        for(int i=0; i<recordCount; i++){
+            cursor.moveToNext();
+            subject=cursor.getString(0);
+        }
+        cursor.close();
+        return subject;
+    }
+    public ArrayList AllsubjectId(String subject){
+        String sql = "select _id "+
+                "from schedule "+
+                "where subject "+"like "+"'%"+subject+"%'"+";";
+
+        ArrayList<Integer> getAll = new ArrayList<Integer>();
+        Cursor cursor=db.rawQuery(sql, null);
+        int recordCount=cursor.getCount();
+        for(int i=0; i<recordCount; i++){
+            cursor.moveToNext();
+            getAll.add(cursor.getInt(0));
+
+        }
+        cursor.close();
+        return getAll;
+    }
+
+//    public ArrayList subject(int id){
+//        String sql = "select  _id"+
+//                "from schedule "+
+//                "where "+getDay()+ " like "+id+";";
+//
+//        ArrayList<Integer> getAll = new ArrayList<Integer>();
+//        Cursor cursor=db.rawQuery(sql, null);
+//        int recordCount=cursor.getCount();
+//        for(int i=0; i<recordCount; i++){
+//            cursor.moveToNext();
+//            getAll.add(cursor.getInt(0));
+//        }
+//        cursor.close();
+//        return getAll;
+//    }
+
 
 }
