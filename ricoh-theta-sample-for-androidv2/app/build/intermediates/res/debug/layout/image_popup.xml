@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<ImageView
+  		android:id="@+id/imageView"
+  		android:layout_width="fill_parent"
+  		android:layout_height="370px"
+  		android:background="#FED345"
+  		android:padding="3px"
+		android:layout_gravity="center" />
+
+</FrameLayout><!-- From: file:/Users/bailey/Downloads/RICOH_THETA_v2_SDK_for_Android.0.1.0/ricoh-theta-sample-for-androidv2/app/src/main/res/layout/image_popup.xml -->
