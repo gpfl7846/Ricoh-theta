@@ -23,9 +23,10 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
+
 import com.fourmob.colorpicker.sample.PlayerService.PlayerBinder;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -49,8 +50,8 @@ public class Timetable extends Activity implements OnClickListener {
     //리스트로 보기 변수
 
     ListView listView;
-  //  ArrayList<String> arrayList = new ArrayList<String>(); //중복검사대상 어레이리스트
-    HashMap<Integer,String> list = new HashMap<>();
+    //  ArrayList<String> arrayList = new ArrayList<String>(); //중복검사대상 어레이리스트
+    HashMap<Integer, String> list = new HashMap<>();
 
     ArrayAdapter<String> adapter;
     //Button btnAdd;
@@ -70,7 +71,7 @@ public class Timetable extends Activity implements OnClickListener {
 
 
     int db_id, db_background;
-    String db_classroom, db_subject, db_starttime, db_endtime, db_mon, db_tues, db_wednes, db_thus, db_fri,db_sat,db_sun;
+    String db_classroom, db_subject, db_starttime, db_endtime, db_mon, db_tues, db_wednes, db_thus, db_fri, db_sat, db_sun;
 
     Boolean control = false;
 
@@ -79,17 +80,18 @@ public class Timetable extends Activity implements OnClickListener {
 
         @Override
         public void onServiceConnected(ComponentName arg0, IBinder service) {
-            PlayerBinder playerBinder = (PlayerBinder)service;
+            PlayerBinder playerBinder = (PlayerBinder) service;
             Timetable.this.playerService = playerBinder.getService();
             // boundService = boundBinder.getService();
-            mBound=true;
+            mBound = true;
         }
 
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
-            mBound=false;
+            mBound = false;
         }
     };
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timetable);
@@ -97,7 +99,7 @@ public class Timetable extends Activity implements OnClickListener {
 
         //
         final LinearLayout timetableview = (LinearLayout) findViewById(R.id.timetable);
-        final LinearLayout timetablelist = (LinearLayout)findViewById(R.id.listtimetable);
+        final LinearLayout timetablelist = (LinearLayout) findViewById(R.id.listtimetable);
 
         final Button timetableshow = (Button) findViewById(R.id.timetableshow);
         final Button listshow = (Button) findViewById(R.id.listshow);
@@ -114,14 +116,7 @@ public class Timetable extends Activity implements OnClickListener {
         helper = new RecordTimeTable_Helper(this);
         int counter = helper.getCounter();
         Log.i(tag, "counter = " + counter);
-
-        //현재 들어있는 데이터를 log창으로 확인함
-        //Helper클래스에 search함수에 가보면 자세한 설명있음.
-
-
         helper.search_data();
-
-
 
 
         //요일의 레이아웃을 어떻게 그릴 지 설정
@@ -232,8 +227,6 @@ public class Timetable extends Activity implements OnClickListener {
         });
 
 
-
-
         // data값 생성
         for (int i = 0, id = 0; i < lay.length; i++) { //10개 id 바꾸기
             for (int j = 1; j < day_line.length; j++) { //6개
@@ -260,14 +253,14 @@ public class Timetable extends Activity implements OnClickListener {
                     db_sat = cur.getString(11);
                     db_sun = cur.getString(12);
                     //arrayList.add(db_subject);
-                    list.put(db_id,db_subject);
+                    list.put(db_id, db_subject);
                     if (inputdata[id].getId() == db_id) {
                         //timetable에 보여주는 과목이다.
                         inputdata[id].setText(db_subject + "\n" + db_classroom);
                         inputdata[id].setBackgroundColor(db_background);
                         //arraylist로 데이터 넘기는 코드
                         helper.update(db_id, db_subject, db_classroom, db_starttime, db_endtime,
-                                db_background, db_mon, db_tues, db_wednes, db_thus, db_fri,db_sat,db_sun);
+                                db_background, db_mon, db_tues, db_wednes, db_thus, db_fri, db_sat, db_sun);
                         cur.moveToNext();
                     }
                 } else if (cur.isAfterLast()) {
@@ -284,7 +277,7 @@ public class Timetable extends Activity implements OnClickListener {
 
         ArrayList result_List = new ArrayList(); //결과를 담을 어레이리스트
         HashSet hs = new HashSet(list.values());
-        Log.v("subject", "과목만 가지고오기"+String.valueOf(list.values()));
+        Log.v("subject", "과목만 가지고오기" + String.valueOf(list.values()));
         Iterator it = hs.iterator();
         while (it.hasNext()) {
             result_List.add(it.next());
@@ -312,8 +305,7 @@ public class Timetable extends Activity implements OnClickListener {
         });
 
         //리스트
-       Log.v("subject", String.valueOf(list));
-
+        Log.v("subject", String.valueOf(list));
 
 
     }//End of OnCreate Method
@@ -456,20 +448,7 @@ public class Timetable extends Activity implements OnClickListener {
                                     intent.putExtra("endtime", c.getString(4));
                                     intent.putExtra("colorpicker", c.getInt(5));
                                     String subject = c.getString(1);
-
-                                    Toast.makeText(Timetable.this,subject,Toast.LENGTH_SHORT).show(); //까페
-
-//                                    String str = songManager.getPath();
-//                                    Toast.makeText(Timetable.this, str, Toast.LENGTH_SHORT).show();//이닛
-
                                     playerService.setPlayList(subject);
-                                    Toast.makeText(Timetable.this,subject,Toast.LENGTH_SHORT).show();//까페
-
-                                    // String str = playerService.getPath();
-                                    //  Toast.makeText(Timetable.this, str, Toast.LENGTH_SHORT).show();//까페
-
-
-
 
                                     break;
                                 }
@@ -561,8 +540,8 @@ public class Timetable extends Activity implements OnClickListener {
                 String thursday_boolean = extras.getString("thursday_boolean");
                 String friday_boolean = extras.getString("friday_boolean");
 
-                String saturday_boolean= "false";
-                String sunday_boolean= "false";
+                String saturday_boolean = "false";
+                String sunday_boolean = "false";
 
                 //저장을 눌렀을 경우
 
@@ -575,7 +554,7 @@ public class Timetable extends Activity implements OnClickListener {
                         inputdata[get_id].setBackgroundColor(colorpicker);
                         inputdata[get_id].setText("" + subject + "\n" + classroom);
                         helper.add(get_id, subject, classroom, starttime1, endtime1, colorpicker,
-                                monday_boolean, tuesday_boolean, wednesday_boolean, thursday_boolean, friday_boolean,saturday_boolean,sunday_boolean);
+                                monday_boolean, tuesday_boolean, wednesday_boolean, thursday_boolean, friday_boolean, saturday_boolean, sunday_boolean);
 
 
                         //둘다 다를 경우 끝나는 시간과 시작 시간이 달라서 둘다 바꿔줘야하는 경우
@@ -586,13 +565,13 @@ public class Timetable extends Activity implements OnClickListener {
                             for (int gap = 1; gap <= j; gap++) {
                                 inputdata[get_id + (5 * gap)].setBackgroundColor(colorpicker);
                                 helper.add(get_id + (5 * gap), subject, classroom, starttime1, endtime1, colorpicker,
-                                        monday_boolean, tuesday_boolean, wednesday_boolean, thursday_boolean, friday_boolean,saturday_boolean,sunday_boolean);
+                                        monday_boolean, tuesday_boolean, wednesday_boolean, thursday_boolean, friday_boolean, saturday_boolean, sunday_boolean);
                             }
                             if (get_id - (5 * w) > 0) {
                                 for (int gap1 = 1; gap1 <= w; gap1++) {
                                     inputdata[get_id - (5 * gap1)].setBackgroundColor(colorpicker);
                                     helper.add(get_id - (5 * gap1), subject, classroom, starttime1, endtime1, colorpicker,
-                                            monday_boolean, tuesday_boolean, wednesday_boolean, thursday_boolean, friday_boolean,saturday_boolean,sunday_boolean);
+                                            monday_boolean, tuesday_boolean, wednesday_boolean, thursday_boolean, friday_boolean, saturday_boolean, sunday_boolean);
                                 }
                             }
 
@@ -606,7 +585,7 @@ public class Timetable extends Activity implements OnClickListener {
                             for (int gap = 1; gap <= j; gap++) {
                                 inputdata[get_id + (5 * gap)].setBackgroundColor(colorpicker);
                                 helper.add(get_id + (5 * gap), subject, classroom, starttime1, endtime1, colorpicker,
-                                        monday_boolean, tuesday_boolean, wednesday_boolean, thursday_boolean, friday_boolean,saturday_boolean,sunday_boolean);
+                                        monday_boolean, tuesday_boolean, wednesday_boolean, thursday_boolean, friday_boolean, saturday_boolean, sunday_boolean);
                             }
 
                             inputdata[id].setText(data.getStringExtra("" + subject + "\n" + classroom));
@@ -619,7 +598,7 @@ public class Timetable extends Activity implements OnClickListener {
                                 for (int gap1 = 1; gap1 <= w; gap1++) {
                                     inputdata[get_id - (5 * gap1)].setBackgroundColor(colorpicker);
                                     helper.add(get_id - (5 * gap1), subject, classroom, starttime1, endtime1, colorpicker,
-                                            monday_boolean, tuesday_boolean, wednesday_boolean, thursday_boolean, friday_boolean,saturday_boolean,sunday_boolean);
+                                            monday_boolean, tuesday_boolean, wednesday_boolean, thursday_boolean, friday_boolean, saturday_boolean, sunday_boolean);
                                 }
                             }
 
@@ -631,9 +610,8 @@ public class Timetable extends Activity implements OnClickListener {
                             inputdata[get_id].setBackgroundColor(colorpicker);
                             inputdata[get_id].setText(data.getStringExtra("" + subject + "\n" + classroom));
                             helper.add(get_id, subject, classroom, starttime1, endtime1, colorpicker,
-                                    monday_boolean, tuesday_boolean, wednesday_boolean, thursday_boolean, friday_boolean,saturday_boolean,sunday_boolean);
+                                    monday_boolean, tuesday_boolean, wednesday_boolean, thursday_boolean, friday_boolean, saturday_boolean, sunday_boolean);
                         }
-
 
 
                     }
@@ -642,12 +620,12 @@ public class Timetable extends Activity implements OnClickListener {
 
 
                     //입력된 값을 리스트에 추가하기 위해서 하는 작업
-                   // arrayList.add(subject);
-                    list.put(id,subject);
+                    // arrayList.add(subject);
+                    list.put(id, subject);
                     // HashSet 데이터 형태로 생성되면서 중복 제거됨
                     HashSet hs = new HashSet(list.values());
                     // ArrayList 형태로 다시 생성
-                    Log.v("subject", "추가된 거 과목만 가지고오기1  "+String.valueOf(list.values()));
+                    Log.v("subject", "추가된 거 과목만 가지고오기1  " + String.valueOf(list.values()));
 
                     ArrayList result_List = new ArrayList();
                     Iterator it = hs.iterator();
@@ -679,8 +657,8 @@ public class Timetable extends Activity implements OnClickListener {
                 String thursday_check = extras.getString("thursday_boolean");
                 String friday_check = extras.getString("friday_boolean");
 
-                String saturday_boolean= "false";
-                String sunday_boolean= "false";
+                String saturday_boolean = "false";
+                String sunday_boolean = "false";
 
                 inputdata[id].setBackgroundColor(colorpicker);
                 inputdata[id].setText("" + subject + "\n" + classroom);
@@ -689,7 +667,7 @@ public class Timetable extends Activity implements OnClickListener {
                 if (clicked.equals("true")) {
                     inputdata[id].setText(data.getStringExtra("" + subject + "\n" + classroom));
                     helper.update(get_id, subject, classroom, starttimechange, endtimechange, colorpicker,
-                            monday_check, tuesday_check, wednesday_check, thursday_check, friday_check,saturday_boolean,sunday_boolean);
+                            monday_check, tuesday_check, wednesday_check, thursday_check, friday_check, saturday_boolean, sunday_boolean);
                     inputdata[id].setBackgroundColor(colorpicker);
                     inputdata[id].setText("" + subject + "\n" + classroom);
 
@@ -698,11 +676,11 @@ public class Timetable extends Activity implements OnClickListener {
                 else if (clicked.equals("false")) {
                     //helper.delete(id);
                     String subjectName = helper.subjectName(get_id);
-                    Log.v("subject","id값이 뭐지 :"+get_id);
-                    Log.v("subject","삭제할 과목명 :"+subjectName);
-                    ArrayList<Integer> Idlist =helper.AllsubjectId(subjectName);
+                    Log.v("subject", "id값이 뭐지 :" + get_id);
+                    Log.v("subject", "삭제할 과목명 :" + subjectName);
+                    ArrayList<Integer> Idlist = helper.AllsubjectId(subjectName);
 
-                    for(int l:Idlist){
+                    for (int l : Idlist) {
                         Log.v("subject", "내가 삭제할 l값:" + l);
                         Log.v("subject", "내가 삭제할 l값의 과목명 :" + helper.subjectName(l));
                         helper.delete(l);
@@ -717,7 +695,7 @@ public class Timetable extends Activity implements OnClickListener {
 
                     HashSet hs = new HashSet(list.values());
                     // ArrayList 형태로 다시 생성
-                    Log.v("subject", "추가된 거 과목만 가지고오기"+String.valueOf(list.values()));
+                    Log.v("subject", "추가된 거 과목만 가지고오기" + String.valueOf(list.values()));
 
                     ArrayList result_List = new ArrayList();
                     Iterator it = hs.iterator();
@@ -747,19 +725,18 @@ public class Timetable extends Activity implements OnClickListener {
         Intent playerServiceIntent = new Intent(this, PlayerService.class);
         getApplicationContext().bindService(playerServiceIntent, playerServiceConnection, Context.BIND_AUTO_CREATE);
         //Toast.makeText(Timetable.this(), mBound, Toast.LENGTH_SHORT).show();
-        if(mBound){
-            Toast.makeText(Timetable.this, "시발", Toast.LENGTH_SHORT).show();//까페
+        if (mBound) {
+            //Toast.makeText(Timetable.this, "시발", Toast.LENGTH_SHORT).show();//까페
         }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if(mBound){
+        if (mBound) {
             getApplicationContext().unbindService(playerServiceConnection);
-            mBound=false;
+            mBound = false;
         }
-
 
 
     }
@@ -775,8 +752,6 @@ public class Timetable extends Activity implements OnClickListener {
     }
 
 
-
-
     /*정렬해주기 위해 디스플레이의 가로 세로 정보를 리턴해주는 함수*/
     @SuppressWarnings("deprecation")
     public int getLcdSizeWidth() {
@@ -789,7 +764,6 @@ public class Timetable extends Activity implements OnClickListener {
 // TODO Auto-generated method stub
         return ((WindowManager) this.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getHeight();
     }//End of getLcdSizeHeight Method
-
 
 
 }

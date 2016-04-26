@@ -6,11 +6,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
 public class SongsManager {
-    final String MEDIA_PATH =  Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator + "MultiPlayer"+File.separator;
+    final String MEDIA_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "MultiPlayer" + File.separator;
     private ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
-    private String mp3Pattern = ".mp4";
+    private String mp3Pattern = ".mp3";
+
     // Constructor
     public SongsManager() {
 
@@ -19,7 +19,7 @@ public class SongsManager {
     /**
      * Function to read all mp3 files and store the details in
      * ArrayList
-     * */
+     */
 
     public ArrayList<HashMap<String, String>> getPlayList() {
         System.out.println(MEDIA_PATH);
@@ -69,5 +69,6 @@ public class SongsManager {
         }
     }
 
-
 }
+
+

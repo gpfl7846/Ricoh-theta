@@ -20,15 +20,16 @@ public class DBAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
-        final ImageView image = (ImageView)view.findViewById(R.id.image);
-        final TextView memo = (TextView)view.findViewById(R.id.memo);
-        final TextView time = (TextView)view.findViewById(R.id.time);
+        final ImageView image = (ImageView) view.findViewById(R.id.image);
+        final TextView memo = (TextView) view.findViewById(R.id.memo);
+        final TextView time = (TextView) view.findViewById(R.id.time);
 
         image.setImageResource(R.drawable.ic_launcher);
-        memo.setText("메모 : "+cursor.getString(cursor.getColumnIndex("memo")));
-        time.setText("시간 : "+cursor.getString(cursor.getColumnIndex("memoTime")));
+        memo.setText("책갈피 : " + cursor.getString(cursor.getColumnIndex("memo")));
+        time.setText("시간 : " + cursor.getString(cursor.getColumnIndex("memoTime")));
 
     }
+
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);

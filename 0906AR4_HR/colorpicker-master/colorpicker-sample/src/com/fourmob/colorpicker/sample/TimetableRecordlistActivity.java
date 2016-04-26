@@ -2,38 +2,39 @@ package com.fourmob.colorpicker.sample;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fourmob.colorpicker.sample.PlayerService.PlayerBinder;
-import com.fourmob.colorpicker.sample.PlayerService.Track;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 public class TimetableRecordlistActivity extends Activity {
+    NotificationManager mNM;
+    private int mId = 1;
+
     private ImageButton playButton, prevButton, nextButton, backwardButton, forwardButton;
     private ActionBar actionBar;
     private SeekBar trackSeek;
@@ -42,36 +43,28 @@ public class TimetableRecordlistActivity extends Activity {
     private int playerStatus;
     private UiRefresher uiRefresher;
     private PlayerService playerService;
-    private ListView tracklistView;
-
-   // private int currentSongIndex = 0;
-   //public SongsManager songManager;
     boolean mBound = false;
     private Spinner spin;
-    private ArrayList<HashMap<String, String>> songsList2 = new ArrayList<HashMap<String, String>>();
-    private ArrayList<HashMap<String, String>> songsList3 = new ArrayList<HashMap<String, String>>();
-  private ArrayAdapter<Track> songsList;
+    private ArrayList<HashMap<String, String>> songsList2 = new ArrayList<HashMap<String,
+            String>>();
+    private ArrayList<HashMap<String, String>> songsList3 = new ArrayList<HashMap<String,
+            String>>();
+    private ArrayList<HashMap<String, String>> songsList4 = new ArrayList<HashMap<String,
+            String>>();
     ListView list;
     RecordTimeTable_Helper dbHelper;
-
-    final String tlqkf ="";
-
-  //  private ArrayAdapter<Track> tracklistAdapter;
-     private SimpleAdapter tracklistAdapter;
-//    private ArrayAdapter<HashMap<String, String>> tracklistAdapter;
+    private SimpleAdapter tracklistAdapter;
 
     String sql;
     Cursor cursor;
-    String sub1="";
-    final static String dbName = "memoDB.db";
-    final static int dbVersion = 2;
+    String sub1 = "";
+
+    int timeM;
 
 
-
-
-
-
-/** Defines callbacks for service binding, passed to bindService() */
+    /**
+     * Defines callbacks for service binding, passed to bindService()
+     */
     private ServiceConnection playerServiceConnection = new ServiceConnection() {
 
         @Override
@@ -93,73 +86,61 @@ public class TimetableRecordlistActivity extends Activity {
         }
     };
 
-/*    public player() {
-    }*/
-
-        public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show_timetable_recordlist);
 
         spin = (Spinner) findViewById(R.id.spinner1);
         progressRefresher = new Timer();
-
-        tracklistView = (ListView)findViewById(R.id.indexlist);
-        playButton = (ImageButton)findViewById(R.id.playButton);
-        prevButton = (ImageButton)findViewById(R.id.previousButton);
-        nextButton = (ImageButton)findViewById(R.id.nextButton);
-        backwardButton = (ImageButton)findViewById(R.id.backwardButton);
-        forwardButton = (ImageButton)findViewById(R.id.forwardButton);
-        trackSeek = (SeekBar)findViewById(R.id.track_seek);
-        currentTrackProgressView = (TextView)findViewById(R.id.track_progress);
-        currentTrackDurationView = (TextView)findViewById(R.id.track_duration);
-       // actionBar = getActionBar();
-       // actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#de4e43")));
+        playButton = (ImageButton) findViewById(R.id.playButton);
+        prevButton = (ImageButton) findViewById(R.id.previousButton);
+        nextButton = (ImageButton) findViewById(R.id.nextButton);
+        backwardButton = (ImageButton) findViewById(R.id.backwardButton);
+        forwardButton = (ImageButton) findViewById(R.id.forwardButton);
+        trackSeek = (SeekBar) findViewById(R.id.track_seek);
+        currentTrackProgressView = (TextView) findViewById(R.id.track_progress);
+        currentTrackDurationView = (TextView) findViewById(R.id.track_duration);
         dbHelper = new RecordTimeTable_Helper(this);
-//        selectDB(sub1);
-        //final Timetable tt = new Timetable();
-            //songManager = new SongsManager();
-//        songsList2 = songManager.getPlayList();
         Log.v("JinHee", "songList2: " + songsList2);
+        mNM = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-            progressRefresher.schedule(new TimerTask() {
 
-                @Override
-                public void run() {
-                    if (playerStatus == PlayerService.PLAYING) {
-                        refreshTrack();
-                    }
+        progressRefresher.schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                if (playerStatus == PlayerService.PLAYING) {
+                    refreshTrack();
                 }
-            }, 0, 500);
+            }
+        }, 0, 500);
 
+        list = (ListView) findViewById(R.id.indexlist);
+        //timeM = cursor.getString(cursor.getColumnIndex("timeMachine"));
+        timeM = dbHelper.queryTimeMachine();
 
-
-
-            //     registerForContextMenu(spin);
-
-        list = (ListView)findViewById(R.id.indexlist);
-         //인덱스 리스트 함수
+        //인덱스 리스트 함수
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 cursor.moveToPosition(position);
-                // String str = cursor.getString(cursor.getColumnIndex("memo"));
                 String time = cursor.getString(cursor.getColumnIndex("memoTime"));
                 int index2 = Integer.parseInt(time);
                 int index3 = index2 * 1000;
-                // Toast.makeText(getApplicationContext(), str, Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(), time, Toast.LENGTH_SHORT).show();
-
-                playerService.seekTrack(index3);
-
+                int timeM2 = timeM * 1000;
+                int index4 = index3 - timeM2;
+                playerService.seekTrack(index4);
+                //Toast.makeText(TimetableRecordlistActivity.this, Integer.toString(index4), Toast.LENGTH_SHORT).show();
             }
         });
 
         //과목명 불러오는 함수
         final Intent intent = getIntent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         int id = intent.getIntExtra("id", 0);
-        String subject= intent.getStringExtra("subject");
-        TextView subjectwrite = (TextView) findViewById( R.id.subject);
+        String subject = intent.getStringExtra("subject");
+        TextView subjectwrite = (TextView) findViewById(R.id.subject);
         subjectwrite.setText(subject);
 
 
@@ -171,28 +152,23 @@ public class TimetableRecordlistActivity extends Activity {
         playButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick (View arg0){
+            public void onClick(View arg0) {
                 // check for already playing
-                  if (playerStatus == PlayerService.PLAYING) {
+                if (playerStatus == PlayerService.PLAYING) {
                     playerService.pause();
                     // Changing button image to play button
                     playButton.setImageResource(R.drawable.btn_play);
-                } else {
+//                    mNM.cancel(mId);
+
+                } else if (playerStatus == PlayerService.PAUSED) {
                     // Resume song
                     playerService.play();
                     // Changing button image to pause button
                     playButton.setImageResource(R.drawable.btn_pause);
+//                    sendNotification(null);
                 }
-
-                String tlqkf2  = playerService.getPath();
-                Toast.makeText(TimetableRecordlistActivity.this,tlqkf2,Toast.LENGTH_SHORT).show();
-
-/*                final ArrayList<HashMap<String, String>> list3 = playerService.getTracklist();
-                Log.v("JinHee", "서비스는 정상이길 ㅎㅎㅎㅎㅎ 시발 : "+ list3);*/
-
             }
         });
-
 
 
         /**
@@ -245,31 +221,39 @@ public class TimetableRecordlistActivity extends Activity {
         });
 
 
-
         /**
          * PlayList Setting into spinner
          *
          * */
 
 
-            tracklistAdapter = new SimpleAdapter(this, songsList3, R.layout.spinner_dropdown_item, new String[] { "songTitle" }, new int[] {R.id.tracklist_item_title });
-            tracklistAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-            spin.setAdapter(tracklistAdapter);
+        tracklistAdapter = new SimpleAdapter(this, songsList3,
+                R.layout.spinner_dropdown_item, new String[]{"songTitle"}, new int[]
+                {R.id.tracklist_item_title});
+        tracklistAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        spin.setAdapter(tracklistAdapter);
 
 
-            spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        //  int s_size = tracklistAdapter.size();
+        //if (s_size == 0){
+        // Toast.makeText(TimetableRecordlistActivity.this,"저장된 파일이 없습니다.", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(TimetableRecordlistActivity.this, Integer.toString(s_size), Toast.LENGTH_SHORT).show();
+        //  }
+
+
+        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
-               // playerService.play(pos);
-
+                // playerService.play(pos);
                 String text = spin.getSelectedItem().toString();
                 String[] arr = text.split("=");
                 String strsss = arr[2];
                 int length1 = strsss.length();
-                sub1 = strsss.substring(0,length1-1);
+                sub1 = strsss.substring(0, length1 - 1);
                 selectDB(sub1);
                 int songIndex = pos;
-                playerService.playTrack(songIndex);
+                playerService.play(songIndex);
+                playerService.pause();
             }
 
             @Override
@@ -290,7 +274,8 @@ public class TimetableRecordlistActivity extends Activity {
 
                     @Override
                     public void run() {
-                        currentTrackProgressView.setText(PlayerService.formatTrackDuration(pos));
+                        currentTrackProgressView.setText(PlayerService.formatTrackDuration
+                                (pos));
                     }
                 });
                 if (user) {
@@ -315,11 +300,32 @@ public class TimetableRecordlistActivity extends Activity {
                 }
             }
         }, 0, 500);
-}// Oncreate End
+    }// Oncreate End
+
+    private void sendNotification(NotificationCompat.Style style) {
+        Notification noti = new Notification(R.drawable.ic_launcher,
+                "재생하고있습니다.", System.currentTimeMillis());
+        noti.defaults |= Notification.DEFAULT_VIBRATE;
+        noti.flags |= Notification.FLAG_AUTO_CANCEL;
+
+        Intent intent = new Intent(this, TimetableRecordlistActivity.class);
+        intent.putExtra("UserName", "12345");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+                | Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent content =
+                PendingIntent.getActivity(this, 0, intent, 0);
+        noti.setLatestEventInfo(this,
+                "재생알림", "재생파일이있습니다.", content);
+        mNM.notify(mId, noti);
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+
     }
 
     @Override
@@ -330,13 +336,13 @@ public class TimetableRecordlistActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-
         Intent playerServiceIntent = new Intent(this, PlayerService.class);
-        bindService(playerServiceIntent , playerServiceConnection, Context.BIND_AUTO_CREATE);
-        getApplicationContext().bindService(playerServiceIntent, playerServiceConnection, 0);
-        Log.v("JinHee", "서비스가 시작되었습니다.");
+        getApplicationContext().bindService(playerServiceIntent, playerServiceConnection,
+                0);
+        mBound = true;
 
     }
+
 
     @Override
     protected void onStop() {
@@ -345,25 +351,35 @@ public class TimetableRecordlistActivity extends Activity {
             synchronized (playerService) {
                 playerService.notifyAll();
                 uiRefresher.done();
+
             }
         }
-
-        }
-
+//       getApplicationContext().unbindService(playerServiceConnection);
+//        mBound=false;
+    }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if(playerService != null){
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            playerService.stop();
+            //Toast.makeText(TimetableRecordlistActivity.this,"서비스를 종료합니다.", Toast.LENGTH_SHORT).show();
             getApplicationContext().unbindService(playerServiceConnection);
+            mBound = false;
 
         }
+
+        return super.onKeyDown(keyCode, event);
     }
+
 
     private void refreshTrack() {
 
-        final int progress = playerService.getCurrentTrackProgress(), max = playerService.getCurrentTrackDuration();
-        final String durationText = PlayerService.formatTrackDuration(playerService.getCurrentTrackDuration()), progressText = PlayerService.formatTrackDuration(playerService.getCurrentTrackProgress());
+        final int progress = playerService.getCurrentTrackProgress(), max =
+                playerService.getCurrentTrackDuration();
+        final String durationText = PlayerService.formatTrackDuration
+                (playerService.getCurrentTrackDuration()), progressText = PlayerService.formatTrackDuration
+                (playerService.getCurrentTrackProgress());
         runOnUiThread(new Runnable() {
 
             @Override
@@ -377,19 +393,33 @@ public class TimetableRecordlistActivity extends Activity {
         });
     }
 
+    private void refreshButtons() {
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                switch (playerStatus) {
+                    case PlayerService.PLAYING:
+                        playButton.setImageResource(R.drawable.btn_pause);
+                        break;
+                    default:
+                        playButton.setImageResource(R.drawable.btn_play);
+                        break;
+                }
+
+            }
+        });
+    }
+
     private void refreshTracklist() {
-        final String test = playerService.getPath();
         final ArrayList<HashMap<String, String>> currentTracks = playerService.getTracklist();
         final int currentTrackPosition = playerService.getCurrentTrackPosition();
-
-        Log.v("JinHee", "PATH입니다.. : " + test);
         runOnUiThread(new Runnable() {
 
             @Override
             public void run() {
 
                 songsList3.clear();
-                Log.v("JinHee", "널떠라 ㅎㅎ " + songsList3);
                 for (int i = 0; i < currentTracks.size(); i++) {
                     HashMap<String, String> song = currentTracks.get(i);
                     songsList3.add(song);
@@ -397,12 +427,11 @@ public class TimetableRecordlistActivity extends Activity {
 
                 tracklistAdapter.notifyDataSetChanged();
                 spin.setSelection(currentTrackPosition);
-                // final String test = playerService.getPath();
-                Log.v("JinHee", "Run을 돌고있는 songsList3입니다. : " + songsList3);
             }
 
         });
     }
+
 
     private class UiRefresher implements Runnable {
         private boolean done = false;
@@ -411,39 +440,36 @@ public class TimetableRecordlistActivity extends Activity {
             done = true;
         }
 
-            @Override
-            public void run () {
+        @Override
+        public void run() {
 
-                while (!done) {
-                    synchronized (playerService) {
-                        playerStatus = playerService.getStatus();
-                        refreshTrack();
-                        refreshTracklist();
-                        playerService.take();
-                        final String test = playerService.getPath();
-                        Log.v("JinHee", "Run을 돌고있는 songsList5입니다. : " + test);
-                        try {
-                            playerService.wait();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+            while (!done) {
+                synchronized (playerService) {
+                    playerStatus = playerService.getStatus();
+                    refreshTrack();
+                    refreshTracklist();
+                    refreshButtons();
+                    playerService.take();
+                    try {
+                        playerService.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
             }
+        }
 
     }
 
-    private void selectDB(String subject){
-        sql = "select DISTINCT oid as _id,memo, memoTime from memoTABLE where fileName ='"+subject+".mp4'";
+    private void selectDB(String subject) {
+        sql = "select DISTINCT oid as _id,memo, memoTime from memoTABLE where fileName='" + subject + ".mp4'";
         cursor = dbHelper.db.rawQuery(sql, null);
-        if(cursor.getCount() > 0){
-            Log.v("JinHee", "GetCount??" + cursor.getCount());
+        if (cursor.getCount() > 0) {
             startManagingCursor(cursor);
-            DBAdapter dbAdapter = new DBAdapter(this, cursor,0);
+            DBAdapter dbAdapter = new DBAdapter(this, cursor, 0);
             list.setAdapter(dbAdapter);
             dbAdapter.notifyDataSetChanged();
-        }
-        else {
+        } else {
             list.setAdapter(null);
 
         }

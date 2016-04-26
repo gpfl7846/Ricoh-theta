@@ -11,16 +11,10 @@
       <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="Android API 22 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 17 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="libs" level="project" />
     <orderEntry type="library" name="android-support-v4" level="project" />
     <orderEntry type="module" module-name="colorpicker-library" />
-    <orderEntry type="module" module-name="colorpicker-library" />
-    <orderEntry type="module" module-name="colorpicker-library" />
-    <orderEntry type="module" module-name="colorpicker-library" />
-    <orderEntry type="module" module-name="colorpicker-library" />
-    <orderEntry type="module" module-name="colorpicker-library" />
-    <orderEntry type="library" name="dropbox-android-sdk" level="project" />
-    <orderEntry type="library" name="json_simple-1.1" level="project" />
   </component>
 </module>

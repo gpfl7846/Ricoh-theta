@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="20dip">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="북마크 키워드 설정"
+        android:padding="10dp"
+        android:gravity="center"
+        android:layout_gravity="center" />
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+                android:id="@+id/et_radio1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="중요"/>
+
+        <EditText
+                android:id="@+id/et_radio2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="시험내용"/>
+
+        <EditText
+            android:id="@+id/et_radio3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="과제설명"/>
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="저장하기" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -13,6 +13,5 @@ public class Developer_Info extends Activity {
         setContentView(R.layout.develop_info);
 
 
-
     }
-    }
+}

@@ -1,6 +1,10 @@
 package com.fourmob.colorpicker.sample;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.media.MediaPlayer;
@@ -9,6 +13,7 @@ import android.os.Binder;
 import android.os.Environment;
 import android.os.IBinder;
 import android.provider.MediaStore.Audio;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import java.io.File;
@@ -19,6 +24,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class PlayerService extends Service {
+    private static final String previousIntentCode = "com.fourmob.colorpicker.sample.INTENT_PREVIOUS";
+    private static final String nextIntentCode = "com.fourmob.colorpicker.sample.INTENT_NEXT";
+    private static final String playpauseIntentCode = "com.fourmob.colorpicker.sample.INTENT_PLAYPAUSE";
+    private static final String openPlayerIntentCode = "com.fourmob.colorpicker.sample.INTENT_OPENPLAYER";
+
+    NotificationManager mNM;
+    private int mId = 1;
+
 
     static public final int STOPED = -1, PAUSED = 0, PLAYING = 1;
     private MediaPlayer mediaPlayer;
@@ -26,20 +39,21 @@ public class PlayerService extends Service {
     private int status, currentTrackPosition;
     private boolean taken;
     private IBinder playerBinder;
-    private SongsManager songsManager;
-    private int seekForwardTime = 5000; // 5000 milliseconds
+    private int seekForwardTime = 5000; // 5000 mill아iseconds
     private int seekBackwardTime = 5000; // 5000 milliseconds
     private ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
-    static public String path="init";
-    public String subject ="";
-//    final String MEDIA_PATH =  Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator + "MultiPlayer"+ File.separator;
+    static public String path = "init";
+    public String subject = "";
+    //    final String MEDIA_PATH =  Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator + "MultiPlayer"+ File.separator;
     private String mp3Pattern = ".mp4";
 
-   // private Utilities utils;
+    // private Utilities utils;
     @Override
     public void onCreate() {
         super.onCreate();
         mediaPlayer = new MediaPlayer();
+        mNM = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
         tracklist = new ArrayList<HashMap<String, String>>();
         currentTrackPosition = -1;
         setStatus(STOPED);
@@ -49,7 +63,7 @@ public class PlayerService extends Service {
 
             @Override
             public void onCompletion(MediaPlayer arg0) {
-                if (currentTrackPosition == tracklist.size()-1) {
+                if (currentTrackPosition == tracklist.size() - 1) {
                     stop();
                 } else {
                     nextTrack();
@@ -57,6 +71,25 @@ public class PlayerService extends Service {
             }
         });
         addTrack();
+    }
+
+    private void sendNotification(NotificationCompat.Style style) {
+        Notification noti = new Notification(R.drawable.ic_launcher,
+                "재생하고있습니다.", System.currentTimeMillis());
+        noti.defaults |= Notification.DEFAULT_VIBRATE;
+        noti.flags |= Notification.FLAG_AUTO_CANCEL;
+
+        Intent intent = new Intent(this, TimetableRecordlistActivity.class);
+        intent.putExtra("UserName", "12345");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+                | Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent content =
+                PendingIntent.getActivity(this, 0, intent, 0);
+        noti.setLatestEventInfo(this,
+                "재생알림", "재생파일이있습니다.", content);
+        mNM.notify(mId, noti);
     }
 
     @Override
@@ -97,8 +130,8 @@ public class PlayerService extends Service {
         return tracklist;
     }
 
-    public void addTrack(){
-       // songsManager = new SongsManager();
+    public void addTrack() {
+        // songsManager = new SongsManager();
         tracklist = getPlayList();
     }
 
@@ -132,26 +165,10 @@ public class PlayerService extends Service {
         untake();
     }
 
-    public void clearTracklist() {
-        if (status > STOPED) {
-            stop();
-        }
-        tracklist.clear();
-        untake();
-    }
-
-
-
-    public String gettlqkf(){
-        String tlqkf;
-        tlqkf = "변수가 잘 전달되고 있나요? -서비스- ";
-        return tlqkf;
-    }
-
-
     public void playTrack(int pos) {
         if (status > STOPED) {
             stop();
+            //mNM.cancel(mId);
         }
         FileInputStream file = null;
         try {
@@ -168,6 +185,7 @@ public class PlayerService extends Service {
             e.printStackTrace();
         }
         mediaPlayer.start();
+        //sendNotification(null);
         currentTrackPosition = pos;
         setStatus(PLAYING);
         untake();
@@ -181,24 +199,26 @@ public class PlayerService extends Service {
         switch (status) {
             case STOPED:
                 if (!tracklist.isEmpty()) {
-                    playTrack(0);
-                    setStatus(PLAYING);
-                }
-                else{
+                    //playTrack(0);
+                    //setStatus(PLAYING);
+                } else {
                     Log.v("JinHee", "플레이할 파일이 없네유!!!!");
                 }
                 break;
             case PLAYING:
                 mediaPlayer.pause();
                 setStatus(PAUSED);
+
                 break;
             case PAUSED:
                 mediaPlayer.start();
                 setStatus(PLAYING);
+                sendNotification(null);
                 break;
         }
         untake();
     }
+
 
     public void pause() {
         mediaPlayer.pause();
@@ -211,15 +231,16 @@ public class PlayerService extends Service {
         mediaPlayer.reset();
         currentTrackPosition = -1;
         setStatus(STOPED);
+        mNM.cancel(mId);
         untake();
     }
 
     public void nextTrack() {
         // check if next song is there or not
-        if(currentTrackPosition < (tracklist.size() - 1)){
+        if (currentTrackPosition < (tracklist.size() - 1)) {
             playTrack(currentTrackPosition + 1);
             currentTrackPosition = currentTrackPosition + 1;
-        }else{
+        } else {
             // play first song
             playTrack(0);
             currentTrackPosition = 0;
@@ -228,17 +249,17 @@ public class PlayerService extends Service {
 
     public void prevTrack() {
         // check if next song is there or not
-        if(currentTrackPosition > 0){
+        if (currentTrackPosition > 0) {
             playTrack(currentTrackPosition - 1);
             currentTrackPosition = currentTrackPosition - 1;
-        }else{
+        } else {
             // play last song
             playTrack(songsList.size() - 1);
             currentTrackPosition = songsList.size() - 1;
         }
     }
 
-    public void forward(){
+    public void forward() {
         // get current song position
         int currentPosition = mediaPlayer.getCurrentPosition();
         // check if seekForward time is lesser than song duration
@@ -263,6 +284,7 @@ public class PlayerService extends Service {
             mediaPlayer.seekTo(0);
         }
     }
+
     public int getCurrentTrackProgress() {
         if (status > STOPED) {
             return mediaPlayer.getCurrentPosition();
@@ -311,7 +333,6 @@ public class PlayerService extends Service {
     }*/
 
 
-
     public class PlayerBinder extends Binder {
 
         public PlayerService getService() {
@@ -319,7 +340,6 @@ public class PlayerService extends Service {
         }
 
         public ArrayList<HashMap<String, String>> getTracklist2() {
-            songsManager = new SongsManager();
             tracklist = getPlayList();
 
             return tracklist;
@@ -335,20 +355,16 @@ public class PlayerService extends Service {
         public Track(String p) {
 
 
-
             path = p;
 
 
             String[] proj = {Audio.Media.ARTIST, Audio.Media.ALBUM, Audio.Media.YEAR, Audio.Media.TITLE, Audio.Media.DURATION, Audio.Media._ID};
 
 
-            Cursor trackCursor = getContentResolver().query(Audio.Media.EXTERNAL_CONTENT_URI, proj, Audio.Media.DATA+" = '"+path+"' ", null, null);
-
-
+            Cursor trackCursor = getContentResolver().query(Audio.Media.EXTERNAL_CONTENT_URI, proj, Audio.Media.DATA + " = '" + path + "' ", null, null);
 
 
             trackCursor.moveToNext();
-
 
 
             artist = trackCursor.getString(0);
@@ -389,7 +405,7 @@ public class PlayerService extends Service {
                 // songsList.add(songMap);
                 tracklist.add(songMap);
                 path = song.getPath();
-                title= song.getName().substring(0, (song.getName().length() - 4));
+                title = song.getName().substring(0, (song.getName().length() - 4));
                 // playerService.addTrack(playerService.new Track(song.getPath()));
                 //   addTrack(this.new Track(song.getPath()));
                 // addTrack(this.new Track(song.getAbsolutePath()));
@@ -410,24 +426,22 @@ public class PlayerService extends Service {
     public static String formatTrackDuration(int d) {
         String min = Integer.toString((d / 1000) / 60);
         String sec = Integer.toString((d / 1000) % 60);
-        if (sec.length() == 1) sec = "0"+sec;
-        return min+":"+sec;
+        if (sec.length() == 1) sec = "0" + sec;
+        return min + ":" + sec;
     }
 
 
-
-
-    public void setPath(String s){
+    public void setPath(String s) {
         subject = s;
         // String path;
         //path =  Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator + "MultiPlayer"+ File.separator+subject+ File.separator;
-        path =Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator + "MultiPlayer"+ File.separator;
+        path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "MultiPlayer" + File.separator;
         //path = s;
         //Log.v("JinHee", "안녕하세요 하이를 불렀어요 ㅎㅎ 시발");
 
     }
 
-    public String getPath(){
+    public String getPath() {
         return path;
     }
 
@@ -435,7 +449,7 @@ public class PlayerService extends Service {
     public void setPlayList(String str) {
         subject = str;
         //String path2 = getPath();
-         String path2 = Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator + "MultiPlayer"+ File.separator+subject+File.separator;
+        String path2 = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "MultiPlayer" + File.separator + subject + File.separator;
         // String path2 = Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator + "MultiPlayer"+ File.separator;
         System.out.println(path2);
         if (path2 != null) {
@@ -457,21 +471,6 @@ public class PlayerService extends Service {
     }
 
     public ArrayList<HashMap<String, String>> getPlayList() {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         // return songs list array

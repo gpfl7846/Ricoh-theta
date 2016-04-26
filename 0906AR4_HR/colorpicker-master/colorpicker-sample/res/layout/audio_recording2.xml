@@ -3,7 +3,8 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:padding="20dip">
+    android:padding="20dip"
+    android:background="@drawable/backgroundd">
 
     <LinearLayout
         android:orientation="vertical"
@@ -12,7 +13,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:layout_marginBottom="30dp">
 
             <ImageView
                 android:id="@+id/imageView"
@@ -26,11 +29,11 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:gravity="center_vertical">
+                android:layout_centerInParent="true"
+                android:gravity="center_vertical"
+                android:layout_centerVertical="true">
 
                 <TextView
                     android:id="@+id/tv_fileName"
@@ -55,6 +58,38 @@
         </RelativeLayout>
 
 
+        <RadioGroup
+            android:id="@+id/radiogroup1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkedButton="@+id/radio1"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <RadioButton
+                android:id="@+id/radio1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="중요" />
+
+            <RadioButton
+                android:id="@+id/radio2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="시험에나옴" />
+
+            <RadioButton
+                android:id="@+id/radio3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="과제설명" />
+
+        </RadioGroup>
+
         <EditText
             android:id="@+id/etMemo"
             android:layout_width="wrap_content"
@@ -65,26 +100,27 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="10dp">
 
             <Button
                 android:id="@+id/btnRecord"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Record"
+                android:text="녹음하기"
                 android:textColor="#fff"
-                android:background="#98c6c4"
+                android:background="#e85c42"
                 android:padding="10dp"
                 android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"/>
 
             <Button
                 android:id="@+id/btnStop"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Stop"
+                android:text="녹음저장"
                 android:textColor="#fff"
-                android:background="#98c6c4"
+                android:background="#e85c42"
                 android:layout_gravity="center_horizontal"
                 android:padding="10dp"
                 android:layout_alignParentTop="true"
@@ -99,26 +135,16 @@
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
-
-
+            android:padding="10dp">
 
             <Button
                 android:id="@+id/btnMemo"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:background="#b2d8e1"
-                android:text="Add Bookmark" />
-
-            <Button
-                android:id="@+id/btnDelete"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:background="#b2d8e1"
-                android:text="Delet DB" />
+                android:background="#d0d2d2"
+                android:textColor="#fff"
+                android:text="책갈피 추가하기" />
 
         </LinearLayout>
 
@@ -153,73 +179,6 @@
     </LinearLayout>
 
 
-
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
-
-        <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:id="@+id/scrollView" >
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:text="@string/app_info"
-                android:layout_weight="1.0"
-                android:textSize="14dp"
-                android:textIsSelectable="false" />
-        </ScrollView>
-
-        <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:id="@+id/scrollView2" >
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/app_info2"
-                android:layout_weight="1.0"
-                android:textSize="14dp"/>
-        </ScrollView>
-    </LinearLayout>
-
-
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/scrollView3">
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:text="tv_fileTable"
-                android:id="@+id/tv_fileTable" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:text="tv_memoTable"
-                android:id="@+id/tv_memoTable" />
-        </LinearLayout>
-
-    </ScrollView>
 
 
 </LinearLayout>

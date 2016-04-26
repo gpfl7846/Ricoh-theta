@@ -16,6 +16,25 @@
     <string name="name">박진희 이혜리 한아름</string>
     <string name="school">Sookmyung Women\'s University</string>
     <string name="professor">지도 교수 :박영호 교수님</string>
+    <string name="intro">안녕하세요! \n멀티플레이어를 이용해주셔서 감사합니다.\n 멀티 플레이어는 수업시간에 녹음을 많이 하는 \n 학생들을 위한 어플입니다.\n  </string>
+    <string name="intro1">
+        시간표 아이콘을 터치하게 되면 시간표를 입력할 수 있는 화면이 나옵니다.\n
+        시간표에 입력된 과목을 누르게 되면 녹음파일  목록으로 넘어가게 됩니다.  \n
+        시간표 과목의 목록 보기를 제공하여 \n 사용자가 시간표에 입력한 과목외의 파일을 \n녹음 할 경우 기타 파일에 저장합니다.
 
-
+    </string>
+     <string name="intro2">
+     입력한 시간표를 기반으로 수업시간이 되면\n자동으로 녹음기가 녹음이 됩니다.\n
+    수업 도중 자신이 중요하다고 생각하는 부분을\n여러개의 책갈피 중 하나를 선택해 표시합니다.\n
+        수업시간이 끝나면 자동으로 녹음이 종료됩니다.
+    </string>
+        <string name="intro3">
+     멀티플레이어의 다양한 설정을\n변경 할 수 있습니다.\n
+            책갈피를 표시할때 녹음 부분의 \n몇 초 앞에서 저장할지를 설정할 수 있습니다.\n
+            수업 자동녹음을 ON/OFF 할 수있습니다. \n
+      또한 책갈피에 들어 갈\n keyword도 변경 할 수 있습니다.\n
+    </string>
+          <string name="intro4">
+     멀티플레이어를 시작해 볼까요?
+    </string>
 </resources>

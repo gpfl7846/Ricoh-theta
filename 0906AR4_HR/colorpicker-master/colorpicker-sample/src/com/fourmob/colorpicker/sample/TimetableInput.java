@@ -57,11 +57,11 @@ public class TimetableInput extends FragmentActivity {
         int min = Integer.parseInt(time[1]);
 
         mSelectedHour = hour;
-        mSelectedMinutes =min;
+        mSelectedMinutes = min;
 
-        mSelectedHourplus = hour+1;
-        mSelectedMinutesplus =min;
-        EndTime.setText(mSelectedHourplus + ":" + "0" + mSelectedMinutesplus);
+        mSelectedHourplus = hour;
+        mSelectedMinutesplus = 50;
+        EndTime.setText(mSelectedHourplus + ":" + mSelectedMinutesplus);
 
 
         setOpeningAndClosingTimes();
@@ -74,7 +74,6 @@ public class TimetableInput extends FragmentActivity {
         final CheckBox week5 = (CheckBox) findViewById(R.id.week5);
 
 
-
         final String monday_checked = intent.getStringExtra("monday_checked");
 
         final String tuesday_checked = intent.getStringExtra("tuesday_checked");
@@ -85,38 +84,38 @@ public class TimetableInput extends FragmentActivity {
 
         final String friday_checked = intent.getStringExtra("friday_checked");
 
-        if(monday_checked != null){
-            if(monday_checked.equals("true")){
+        if (monday_checked != null) {
+            if (monday_checked.equals("true")) {
 
                 week1.setChecked(!week1.isChecked());
                 Log.v("checking", "monday is checked");
             }
         }
 
-        if(tuesday_checked != null){
-            if(tuesday_checked.equals("true")){
+        if (tuesday_checked != null) {
+            if (tuesday_checked.equals("true")) {
                 week2.setChecked(!week2.isChecked());
                 Log.v("checking", "tuesday is checked");
             }
         }
 
-        if(wednesday_checked != null){
-            if(wednesday_checked.equals("true")){
+        if (wednesday_checked != null) {
+            if (wednesday_checked.equals("true")) {
 
                 week3.setChecked(!week3.isChecked());
                 Log.v("checking", "wednesday is checked");
             }
         }
 
-        if(thursday_checked != null){
-            if(thursday_checked.equals("true")){
+        if (thursday_checked != null) {
+            if (thursday_checked.equals("true")) {
 
                 week4.setChecked(!week4.isChecked());
                 Log.v("checking", "thursday is checked");
             }
         }
-        if(friday_checked != null){
-            if(friday_checked.equals("true")){
+        if (friday_checked != null) {
+            if (friday_checked.equals("true")) {
 
                 week5.setChecked(!week5.isChecked());
                 Log.v("checking", "friday is checked");
@@ -124,12 +123,11 @@ public class TimetableInput extends FragmentActivity {
         }
 
 
-
         //저장 버튼을 누르게 되면 id,강의명,강의실,시작 시간 ,끝 시간 데이터 timetable.xml에 보내게 된다.
         savebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("clicked","true");
+                intent.putExtra("clicked", "true");
                 EditText put_subject = (EditText) findViewById(R.id.input_subject);
                 EditText put_classroom = (EditText) findViewById(R.id.input_classroom);
                 Button put_starttime = (Button) findViewById(R.id.start_time_btn);
@@ -138,7 +136,6 @@ public class TimetableInput extends FragmentActivity {
 
                 int id = intent.getIntExtra("id", 0);
                 String date = intent.getStringExtra("date");
-
 
 
                 Boolean monday = week1.isChecked();
@@ -153,14 +150,14 @@ public class TimetableInput extends FragmentActivity {
                 Boolean thursday = week4.isChecked();
                 String thursday_boolean = String.valueOf(thursday);
 
-                Boolean friday= week5.isChecked();
+                Boolean friday = week5.isChecked();
                 String friday_boolean = String.valueOf(friday);
 
                 //월 -금 체크 여부를 보내주는 것
                 intent.putExtra("monday_boolean", monday_boolean);
                 intent.putExtra("tuesday_boolean", tuesday_boolean);
                 intent.putExtra("wednesday_boolean", wednesday_boolean);
-                intent.putExtra("thursday_boolean",thursday_boolean );
+                intent.putExtra("thursday_boolean", thursday_boolean);
                 intent.putExtra("friday_boolean", friday_boolean);
                 intent.putExtra("id", id);
                 intent.putExtra("subject", put_subject.getText().toString());
@@ -216,8 +213,6 @@ public class TimetableInput extends FragmentActivity {
         });
 
 
-
-
         //시작하는 시간을 저장
         StartTime.setOnClickListener(new View.OnClickListener() {
 
@@ -241,16 +236,14 @@ public class TimetableInput extends FragmentActivity {
         });
 
 
-
-
         //배경 색깔을 정하기 위한 색깔 지정 함수
-        final Button color_picker = (Button)findViewById(R.id.color_picker);
+        final Button color_picker = (Button) findViewById(R.id.color_picker);
         final ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
-        colorPickerDialog.initialize(R.string.dialog_title, new int[]{Color.rgb(253,189,224),Color.rgb(207,232,128) ,
-                        Color.rgb(168,170,244), Color.rgb(253,243,146), Color.rgb(254,177,149),
-                        Color.rgb(240,240,238), Color.rgb(191,234,243), Color.rgb(112,177,199), Color.rgb(114,196,190),
-                        Color.rgb(245,159,160), Color.rgb(179,143,181),Color.rgb(255,204,204)},
-                Color.rgb(255,204,204), 3, 2);
+        colorPickerDialog.initialize(R.string.dialog_title, new int[]{Color.rgb(253, 189, 224), Color.rgb(207, 232, 128),
+                        Color.rgb(168, 170, 244), Color.rgb(253, 243, 146), Color.rgb(254, 177, 149),
+                        Color.rgb(240, 240, 238), Color.rgb(191, 234, 243), Color.rgb(112, 177, 199), Color.rgb(114, 196, 190),
+                        Color.rgb(245, 159, 160), Color.rgb(179, 143, 181), Color.rgb(255, 204, 204)},
+                Color.rgb(255, 204, 204), 3, 2);
 
         //색깔을 클릭하게 되면 보여주게 하는 것+__+
         colorPickerDialog.setOnColorSelectedListener(new ColorPickerSwatch.OnColorSelectedListener() {
@@ -276,7 +269,6 @@ public class TimetableInput extends FragmentActivity {
     }//oncreate마지막
 
 
-
     //timepicker 지정하는 함수인데 아직 실행 안됨
     private void setOpeningAndClosingTimes() {
         mCalendarOpeningTime = Calendar.getInstance();
@@ -291,14 +283,14 @@ public class TimetableInput extends FragmentActivity {
     }
 
     private void updateTimeUI() {
-        String hour = (mSelectedHour > 9) ? ""+mSelectedHour: "0"+mSelectedHour ;
-        String minutes = (mSelectedMinutes > 9) ?""+mSelectedMinutes : "0"+mSelectedMinutes;
-        StartTime.setText(hour+":"+minutes);
+        String hour = (mSelectedHour > 9) ? "" + mSelectedHour : "0" + mSelectedHour;
+        String minutes = (mSelectedMinutes > 9) ? "" + mSelectedMinutes : "0" + mSelectedMinutes;
+        StartTime.setText(hour + ":" + minutes);
     }
 
     private void updateTimeUI1() {
-        String hour = (mSelectedHourplus > 9) ? ""+mSelectedHourplus: "0"+mSelectedHourplus ;
-        String minutes = (mSelectedMinutesplus > 9) ?""+mSelectedMinutesplus : "0"+mSelectedMinutesplus;
+        String hour = (mSelectedHourplus > 9) ? "" + mSelectedHourplus : "0" + mSelectedHourplus;
+        String minutes = (mSelectedMinutesplus > 9) ? "" + mSelectedMinutesplus : "0" + mSelectedMinutesplus;
         EndTime.setText(hour + ":" + minutes);
     }
 
@@ -311,7 +303,6 @@ public class TimetableInput extends FragmentActivity {
         dialog.show();
         return dialog;
     }
-
 
 
     final TimePickerDialog.OnTimeSetListener mOnTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
@@ -339,13 +330,14 @@ public class TimetableInput extends FragmentActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-       // getMenuInflater().inflate(R.menu.main, menu);
+        // getMenuInflater().inflate(R.menu.main, menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_activity_actions, menu);
 
         return super.onCreateOptionsMenu(menu);
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Take appropriate action for each action item click
@@ -370,11 +362,11 @@ public class TimetableInput extends FragmentActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
     private void LocationFound() {
 
 
     }
-
 
 
 } //END of Timetable Class

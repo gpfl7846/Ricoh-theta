@@ -8,7 +8,7 @@
         android:layout_width="fill_parent"
         android:layout_height="90dip"
         android:id="@+id/linearLayout"
-        android:background="#de4e43"
+        android:background="#e85c42"
         android:layout_above="@+id/linear2"
         android:orientation="vertical">
 
@@ -55,7 +55,7 @@
         android:layout_width="fill_parent"
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
-        android:background="#de4e43"
+        android:background="#e85c42"
         android:gravity="center"
 
         android:orientation="horizontal"
@@ -98,13 +98,6 @@
             android:layout_width="70dp"
             android:layout_height="100dp"
             android:background="@null"/>
-        <ImageButton
-            android:id="@+id/stopButton"
-            android:src="@drawable/btn_shuffle"
-            android:layout_width="30dp"
-            android:layout_height="100dp"
-            android:background="@null"/>
-
     </LinearLayout>
 
     <!-- Progress Bar/Seek bar -->
@@ -138,7 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="left"
-            android:textColor="#eeeeee"
+            android:textColor="#da6c58"
             android:textStyle="bold"/>
         <!-- Total Duration Label -->
         <TextView
@@ -147,7 +140,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
-            android:textColor="#de4e43"
+            android:textColor="#5c5c5c"
             android:textStyle="bold"/>
     </LinearLayout>
 

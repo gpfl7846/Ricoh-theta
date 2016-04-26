@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.fourmob.colorpicker.ColorPickerDialog;
 import com.fourmob.colorpicker.ColorPickerSwatch;
@@ -22,7 +21,7 @@ import com.fourmob.colorpicker.ColorPickerSwatch;
 /**
  * Created by bailey on 15. 5. 14..
  */
-public class TimetableChange  extends FragmentActivity {
+public class TimetableChange extends FragmentActivity {
     private Button put_starttimechange;
     private Button put_endtimechange;
     private Button EndTime;
@@ -33,6 +32,7 @@ public class TimetableChange  extends FragmentActivity {
 
     int mSelectedHourplus;
     int mSelectedMinutesplus;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timetable_change);
@@ -40,7 +40,7 @@ public class TimetableChange  extends FragmentActivity {
         Button cancel = (Button) findViewById(R.id.cancel);
         Button delete = (Button) findViewById(R.id.delete);
         put_starttimechange = (Button) findViewById(R.id.start_time_btn);
-        put_endtimechange  = (Button) findViewById(R.id.end_time_btn);
+        put_endtimechange = (Button) findViewById(R.id.end_time_btn);
         final Intent intent = getIntent();
         //  String date = intent.getStringExtra("date");
 
@@ -73,8 +73,7 @@ public class TimetableChange  extends FragmentActivity {
         int endmin = Integer.parseInt(endtimearry[1]);
 
         mSelectedHourplus = endhour;
-        mSelectedMinutesplus =endmin;
-
+        mSelectedMinutesplus = endmin;
 
 
         String monday_checked = intent.getStringExtra("monday_boolean");
@@ -86,7 +85,6 @@ public class TimetableChange  extends FragmentActivity {
         String thursday_checked = intent.getStringExtra("thursday_boolean");
 
         String friday_checked = intent.getStringExtra("friday_boolean");
-
 
 
         CheckBox week1 = (CheckBox) findViewById(R.id.week1);
@@ -101,39 +99,39 @@ public class TimetableChange  extends FragmentActivity {
 //        Toast.makeText(TimetableChange.this, "wends : " + wednesday_checked, Toast.LENGTH_SHORT).show();
 //        Toast.makeText(TimetableChange.this, "thurs : " + thursday_checked, Toast.LENGTH_SHORT).show();
 
-        if(monday_checked != null){
-            if(monday_checked.equals("true")){
+        if (monday_checked != null) {
+            if (monday_checked.equals("true")) {
                 week1.setChecked(true);
                 Log.v("checking", "monday is checked2");
-                Toast.makeText(TimetableChange.this, "selectedColor : " + monday_checked, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(TimetableChange.this, "selectedColor : " + monday_checked, Toast.LENGTH_SHORT).show();
             }
         }
 
-        if(tuesday_checked != null){
-            if(tuesday_checked.equals("true")){
+        if (tuesday_checked != null) {
+            if (tuesday_checked.equals("true")) {
 
                 week2.setChecked(!week2.isChecked());
                 Log.v("checking", "tuesday is checked2");
             }
         }
 
-        if(wednesday_checked != null){
-            if(wednesday_checked.equals("true")){
+        if (wednesday_checked != null) {
+            if (wednesday_checked.equals("true")) {
 
                 week3.setChecked(!week3.isChecked());
                 Log.v("checking", "wednesday is checked2");
             }
         }
 
-        if(thursday_checked != null){
-            if(thursday_checked.equals("true")){
+        if (thursday_checked != null) {
+            if (thursday_checked.equals("true")) {
 
                 week4.setChecked(!week4.isChecked());
                 Log.v("checking", "thursday is checked2");
             }
         }
-        if(friday_checked != null){
-            if(friday_checked.equals("true")){
+        if (friday_checked != null) {
+            if (friday_checked.equals("true")) {
 
                 week5.setChecked(!week5.isChecked());
                 Log.v("checking", "friday is checked2");
@@ -144,12 +142,14 @@ public class TimetableChange  extends FragmentActivity {
         put_subject.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 put_subject.setText(null);
-            }});
+            }
+        });
         put_classroom.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 put_classroom.setText(null);
 
-            }});
+            }
+        });
         put_starttimechange.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 put_starttimechange.setText(null);
@@ -173,7 +173,6 @@ public class TimetableChange  extends FragmentActivity {
         });
 
 
-
         //끝나는 시간을 변경하는 경우
         put_endtimechange.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,7 +187,7 @@ public class TimetableChange  extends FragmentActivity {
         savebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("clicked","true");
+                intent.putExtra("clicked", "true");
                 int id = intent.getIntExtra("id", 0);
                 String date = intent.getStringExtra("date");
 
@@ -244,7 +243,7 @@ public class TimetableChange  extends FragmentActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent.putExtra("clicked","false");
+                intent.putExtra("clicked", "false");
                 setResult(RESULT_OK, intent);
                 finish();
             }
@@ -252,83 +251,83 @@ public class TimetableChange  extends FragmentActivity {
 
         int color = intent.getIntExtra("colorpicker", 0);
 
-                final Button color_picker = (Button) findViewById(R.id.color_picker);
-                final ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
-                colorPickerDialog.initialize(R.string.dialog_title, new int[]{Color.rgb(253, 189, 224), Color.rgb(207, 232, 128),
-                                Color.rgb(168, 170, 244), Color.rgb(253, 243, 146), Color.rgb(254, 177, 149),
-                                Color.rgb(240, 240, 238), Color.rgb(191, 234, 243), Color.rgb(112, 177, 199), Color.rgb(114, 196, 190),
-                                Color.rgb(245, 159, 160), Color.rgb(179, 143, 181), Color.rgb(255, 204, 204)},
-                        color, 3, 2);
+        final Button color_picker = (Button) findViewById(R.id.color_picker);
+        final ColorPickerDialog colorPickerDialog = new ColorPickerDialog();
+        colorPickerDialog.initialize(R.string.dialog_title, new int[]{Color.rgb(253, 189, 224), Color.rgb(207, 232, 128),
+                        Color.rgb(168, 170, 244), Color.rgb(253, 243, 146), Color.rgb(254, 177, 149),
+                        Color.rgb(240, 240, 238), Color.rgb(191, 234, 243), Color.rgb(112, 177, 199), Color.rgb(114, 196, 190),
+                        Color.rgb(245, 159, 160), Color.rgb(179, 143, 181), Color.rgb(255, 204, 204)},
+                color, 3, 2);
 
-                colorPickerDialog.setOnColorSelectedListener(new ColorPickerSwatch.OnColorSelectedListener() {
-                    @Override
-                    public void onColorSelected(int color) {
-                        findViewById(R.id.color_picker).setBackgroundColor(color);
-                        //Toast.makeText(TimetableInput.this, "selectedColor : " + color, Toast.LENGTH_SHORT).show();
-                        intent.putExtra("colorpicker", color);
+        colorPickerDialog.setOnColorSelectedListener(new ColorPickerSwatch.OnColorSelectedListener() {
+            @Override
+            public void onColorSelected(int color) {
+                findViewById(R.id.color_picker).setBackgroundColor(color);
+                //Toast.makeText(TimetableInput.this, "selectedColor : " + color, Toast.LENGTH_SHORT).show();
+                intent.putExtra("colorpicker", color);
 
-                    }
-
-
-                });
-
-                color_picker.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-                        colorPickerDialog.show(getSupportFragmentManager(), "colorpicker");
-                    }
-                });
-
-                SharedPreferences sharedprefs = getSharedPreferences("Test", MODE_PRIVATE);
-                sharedprefs.edit().putInt("colorint", color).apply();
-
-            }//oncreate end
-
-
-            private TimePickerDialog showTimePickerDialog(int hour, int min, boolean is24Hour, TimePickerDialog.OnTimeSetListener listener) {
-                TimePickerDialog dialog = new TimePickerDialog(this, listener, hour, min, is24Hour);
-                dialog.show();
-                return dialog;
             }
 
 
-            private void updateTimeUI() {
-                String hour = (mSelectedHour > 9) ? "" + mSelectedHour : "0" + mSelectedHour;
-                String minutes = (mSelectedMinutes > 9) ? "" + mSelectedMinutes : "0" + mSelectedMinutes;
+        });
 
-                put_starttimechange.setText(hour + ":" + minutes);
+        color_picker.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                colorPickerDialog.show(getSupportFragmentManager(), "colorpicker");
             }
+        });
 
-            final TimePickerDialog.OnTimeSetListener mOnTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
-                public void onTimeSet(TimePicker view, int hour, int min) {
-                    // update the current variables (hour and minutes)
-                    mSelectedHour = hour;
-                    mSelectedMinutes = min;
+        SharedPreferences sharedprefs = getSharedPreferences("Test", MODE_PRIVATE);
+        sharedprefs.edit().putInt("colorint", color).apply();
 
-                    // update txtTime with the selected time
-                    updateTimeUI();
-                }
-            };
-
-            private void updateTimeUI1() {
-                String hour = (mSelectedHourplus > 9) ? "" + mSelectedHourplus : "0" + mSelectedHourplus;
-                String minutes = (mSelectedMinutesplus > 9) ? "" + mSelectedMinutesplus : "0" + mSelectedMinutesplus;
-                put_endtimechange.setText(hour + ":" + minutes);
-            }
+    }//oncreate end
 
 
-            final TimePickerDialog.OnTimeSetListener mOnTimeSetListener1 = new TimePickerDialog.OnTimeSetListener() {
-                public void onTimeSet(TimePicker view, int hour, int min) {
-                    // update the current variables (hour and minutes)
-                    mSelectedHourplus = hour;
-                    mSelectedMinutesplus = min;
+    private TimePickerDialog showTimePickerDialog(int hour, int min, boolean is24Hour, TimePickerDialog.OnTimeSetListener listener) {
+        TimePickerDialog dialog = new TimePickerDialog(this, listener, hour, min, is24Hour);
+        dialog.show();
+        return dialog;
+    }
 
-                    // update txtTime with the selected time
-                    updateTimeUI1();
-                }
-            };
+
+    private void updateTimeUI() {
+        String hour = (mSelectedHour > 9) ? "" + mSelectedHour : "0" + mSelectedHour;
+        String minutes = (mSelectedMinutes > 9) ? "" + mSelectedMinutes : "0" + mSelectedMinutes;
+
+        put_starttimechange.setText(hour + ":" + minutes);
+    }
+
+    final TimePickerDialog.OnTimeSetListener mOnTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+        public void onTimeSet(TimePicker view, int hour, int min) {
+            // update the current variables (hour and minutes)
+            mSelectedHour = hour;
+            mSelectedMinutes = min;
+
+            // update txtTime with the selected time
+            updateTimeUI();
         }
+    };
+
+    private void updateTimeUI1() {
+        String hour = (mSelectedHourplus > 9) ? "" + mSelectedHourplus : "0" + mSelectedHourplus;
+        String minutes = (mSelectedMinutesplus > 9) ? "" + mSelectedMinutesplus : "0" + mSelectedMinutesplus;
+        put_endtimechange.setText(hour + ":" + minutes);
+    }
+
+
+    final TimePickerDialog.OnTimeSetListener mOnTimeSetListener1 = new TimePickerDialog.OnTimeSetListener() {
+        public void onTimeSet(TimePicker view, int hour, int min) {
+            // update the current variables (hour and minutes)
+            mSelectedHourplus = hour;
+            mSelectedMinutesplus = min;
+
+            // update txtTime with the selected time
+            updateTimeUI1();
+        }
+    };
+}
 
 
 

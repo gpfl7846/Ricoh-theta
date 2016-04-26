@@ -39,14 +39,16 @@
         </activity>
 
         <!--<activity-->
-            <!--android:name=".BoundActivityNo"></activity>-->
+        <!--android:name=".BoundActivityNo"></activity>-->
         <activity
             android:name="com.fourmob.colorpicker.sample.BoundActivity2"
+            android:windowSoftInputMode="stateHidden"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+
         <service
             android:name="com.fourmob.colorpicker.sample.PlayerService"
             android:enabled="true"
@@ -58,13 +60,30 @@
             android:exported="true" >
         </service>
 
+        <service
+            android:name="com.fourmob.colorpicker.sample.BoundService2"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+
+        <service
+            android:name="com.fourmob.colorpicker.sample.MyService2"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+
         <!--<activity-->
-            <!--android:name=".AudioRecording"-->
-            <!--android:label="@string/app_name" >-->
+        <!--android:name=".AudioRecording"-->
+        <!--android:label="@string/app_name" >-->
 
         <!--</activity>-->
         <activity
             android:name=".Timetable"
+            android:label="@string/app_name"   >
+
+        </activity>
+        <activity
+            android:name=".Timetable2"
             android:label="@string/app_name"   >
 
         </activity>
@@ -84,15 +103,19 @@
             android:name=".TimetableRecordlistActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar"
-            tools:targetApi="honeycomb_mr2">
+            tools:targetApi="honeycomb_mr2"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
         </activity>
 
         <activity
-        android:name=".TimetableChange"
-        android:label="@string/app_name"
-        android:theme="@android:style/Theme.Holo.Light.NoActionBar"
-        tools:targetApi="honeycomb_mr2">
-    </activity>
+            android:name=".TimetableChange"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"
+            tools:targetApi="honeycomb_mr2">
+        </activity>
         <activity
             android:name=".Developer_Info"
             android:label="@string/app_name"
@@ -112,7 +135,7 @@
             <intent-filter>
 
                 <!-- Change this to be db- followed by your app key -->
-                <data android:scheme="db-mi2rs6otzb3inwd" />
+                <data android:scheme="db-crw6v7mz5anvh8o" />
 
                 <action android:name="android.intent.action.VIEW" />
 
@@ -120,7 +143,18 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".FirstStartActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
+            android:screenOrientation="portrait"
+            tools:targetApi="honeycomb">
 
+        </activity>
+
+        <activity
+            android:name=".SettingsKeyword"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>
