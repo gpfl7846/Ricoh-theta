@@ -38,4 +38,4 @@
             android:text="@string/dialog_positive_button"
             android:id="@+id/btn_commit" />
     </RadioGroup>
-</LinearLayout><!-- From: file:/Users/bailey/Downloads/RICOH_THETA_v2_SDK_for_Android.0.1.0/ricoh-theta-sample-for-androidv2/app/src/main/res/layout/dialog_image_size.xml -->
+</LinearLayout><!-- From: file:/Users/bailey/Ricoh-theta/ricoh-theta-sample-for-androidv2/app/src/main/res/layout/dialog_image_size.xml -->

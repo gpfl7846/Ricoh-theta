@@ -21,7 +21,9 @@ public final class R {
         public static final int camera=0x7f020000;
         public static final int ic_launcher=0x7f020001;
         public static final int logoreylabs=0x7f020002;
-        public static final int theta360=0x7f020003;
+        public static final int ricoh_camera=0x7f020003;
+        public static final int setting=0x7f020004;
+        public static final int theta360=0x7f020005;
     }
     public static final class id {
         public static final int Cancelbtn=0x7f07000d;

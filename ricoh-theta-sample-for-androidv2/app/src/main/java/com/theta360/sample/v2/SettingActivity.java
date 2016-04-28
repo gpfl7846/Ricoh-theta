@@ -1,11 +1,14 @@
 package com.theta360.sample.v2;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,6 +52,10 @@ public class SettingActivity extends Activity implements ImageSizeDialog.DialogB
         //to save folder name
         final DatabaseHandler db = new DatabaseHandler(this);
 
+        ActionBar actionBar = getActionBar();
+        //action bar
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#cb002f"))); // 색상 변경(색상코드)﻿
+        actionBar.setDisplayShowHomeEnabled(false);
 
         cameraIpAddress = getResources().getString(R.string.theta_ip_address);
         // Reading all contacts

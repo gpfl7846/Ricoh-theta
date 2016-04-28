@@ -30,7 +30,7 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -58,12 +58,12 @@ public class MainActivity extends Activity {
     private ConnectRicoh ConnectRicoh = null;
     // directory name to store captured images and videos
     private static final String IMAGE_DIRECTORY_NAME = "Hello Camera";
-    Button camera360;
+    ImageButton camera360;
     private Uri fileUri; // file url to store image/video
 
     //private ImageView imgPreview;
     private VideoView videoPreview;
-    private Button btnCapturePicture, btnRecordVideo;
+    private ImageButton btnCapturePicture, btnRecordVideo;
     final DatabaseHandler db = new DatabaseHandler(this);
     private String foldername;
 
@@ -74,8 +74,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         cameraIpAddress = getResources().getString(R.string.theta_ip_address);
         //imgPreview = (ImageView) findViewById(R.id.imgPreview);
-        btnCapturePicture = (Button) findViewById(R.id.btnCapturePicture);
-        camera360 = (Button) findViewById(R.id.camera360);
+        btnCapturePicture = (ImageButton) findViewById(R.id.btnCapturePicture);
+        camera360 = (ImageButton) findViewById(R.id.camera360);
         forceConnectToWifi();
 
         db.addContact(new Folder(1, "Reylabs"));
@@ -88,7 +88,11 @@ public class MainActivity extends Activity {
 		 */
         ActionBar actionBar = getActionBar();
         //액션바 객체 얻어서
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1f2332"))); // 색상 변경(색상코드)﻿
+
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#cb002f"))); // 색상 변경(색상코드)﻿
+        actionBar.setDisplayUseLogoEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(false);
+
         btnCapturePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +104,7 @@ public class MainActivity extends Activity {
         });
 
 
-        Button Setting = (Button) findViewById(R.id.SettingBtn);
+        ImageButton Setting = (ImageButton) findViewById(R.id.SettingBtn);
         Setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -316,7 +320,7 @@ public class MainActivity extends Activity {
                 Locale.getDefault()).format(new Date());
         File mediaFile;
         if (type == MEDIA_TYPE_IMAGE) {
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg");
+            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".JPG");
         } else if (type == MEDIA_TYPE_VIDEO) {
             mediaFile = new File(mediaStorageDir.getPath() + File.separator + "VID_" + timeStamp + ".mp4");
         } else {

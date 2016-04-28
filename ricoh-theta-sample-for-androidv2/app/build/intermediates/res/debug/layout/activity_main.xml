@@ -2,52 +2,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:baselineAligned="false"
     tools:context=".MainActivity" >
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight=".2"
+        android:background="#ffffff"></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="horizontal"
-        android:background="#ffffff">
+        android:background="#cb002f"
+        android:layout_weight=".25">
 
         <!-- Capture picture button -->
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="360 Camera"
-            android:id="@+id/camera360"
-            android:background="#1f2332"
-            android:textColor="#fff"
-            android:layout_weight=".3"
-            android:layout_margin="2dp" />
 
-        <Button
-            android:id="@+id/btnCapturePicture"
-            android:layout_width="wrap_content"
+        <ImageButton
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight=".3"
+            android:id="@+id/camera360"
+            android:textColor="#fff"
             android:text="Camera"
-            android:background="#1f2332"
-            android:textColor="#fff"
+            android:background="@drawable/ricoh_camera"
+            android:layout_margin="10dp" />
+
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight=".3"
-            android:layout_margin="2dp" />
-        <Button
+            android:id="@+id/btnCapturePicture"
+            android:textColor="#fff"
+            android:text="Camera"
+            android:background="@drawable/camera"
+            android:layout_margin="10dp" />
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:id="@+id/SettingBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Setting"
-            android:background="#1f2332"
-            android:textColor="#fff"
             android:layout_weight=".3"
-            android:layout_margin="2dp" />
+            android:textColor="#fff"
+            android:text="Camera"
+            android:background="@drawable/setting"
+            android:layout_margin="10dp" />
+
 
         <!-- Record video button -->
     </LinearLayout>
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight=".2"
+        android:background="#ffffff"></LinearLayout>
 
 
-</LinearLayout><!-- From: file:/Users/bailey/Downloads/RICOH_THETA_v2_SDK_for_Android.0.1.0/ricoh-theta-sample-for-androidv2/app/src/main/res/layout/activity_main.xml -->
+</LinearLayout><!-- From: file:/Users/bailey/Ricoh-theta/ricoh-theta-sample-for-androidv2/app/src/main/res/layout/activity_main.xml -->

@@ -1,11 +1,14 @@
 package com.theta360.sample.v2;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
@@ -17,7 +20,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -81,7 +83,12 @@ public class Camera360MainActivity extends Activity implements ImageSizeDialog.D
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        ActionBar actionBar = getActionBar();
+        //action bar
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#cb002f"))); // 색상 변경(색상코드)﻿
+        actionBar.setDisplayShowHomeEnabled(false);
+
         setContentView(R.layout.activity_camera_360);
         cameraIpAddress = getResources().getString(R.string.theta_ip_address);
         //getActionBar().setTitle(cameraIpAddress);
@@ -117,7 +124,7 @@ public class Camera360MainActivity extends Activity implements ImageSizeDialog.D
             //when it is false we say NOT CONNECTED
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Camera360MainActivity.this, AlbumActivity.class);
+                Intent i = new Intent(Camera360MainActivity.this, Album_ImageList.class);
                 startActivity(i);
             }
         });
@@ -616,7 +623,7 @@ public class Camera360MainActivity extends Activity implements ImageSizeDialog.D
                         cnt = numberOfImages + 1;
                     }
                     try {
-                        File file = new File(extStorageDirectory, "/" + foldername + "-" + cnt + ".JPG");
+                        File file = new File(extStorageDirectory, "/" + foldername + "-" + cnt + ".jpeg");
                         Log.v("foldername", "to save   :   " + file);
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         thumbnail.compress(Bitmap.CompressFormat.JPEG, 100, baos);

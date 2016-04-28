@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/bailey/Downloads/RICOH_THETA_v2_SDK_for_Android.0.1.0/ricoh-theta-sample-for-androidv2/app/src/main/res/values/dimens.xml -->
+    <!-- From: file:/Users/bailey/Ricoh-theta/ricoh-theta-sample-for-androidv2/app/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="common_height">48dp</dimen>
     <dimen name="common_margin">16dp</dimen>
     <dimen name="list_divider_height">1px</dimen>
     <dimen name="thumbnail_height">48dp</dimen>
     <dimen name="thumbnail_width">96dp</dimen>
-    <!-- From: file:/Users/bailey/Downloads/RICOH_THETA_v2_SDK_for_Android.0.1.0/ricoh-theta-sample-for-androidv2/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/Users/bailey/Ricoh-theta/ricoh-theta-sample-for-androidv2/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="Gallery">Gallery</string>
     <string name="Setting">set</string>

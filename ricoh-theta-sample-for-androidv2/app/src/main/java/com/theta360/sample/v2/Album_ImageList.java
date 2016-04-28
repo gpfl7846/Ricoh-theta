@@ -17,11 +17,15 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.theta360.sample.v2.model.DatabaseHandler;
+
 import java.util.ArrayList;
 
 public class Album_ImageList extends Activity {
 
     private Context mContext;
+    final DatabaseHandler db = new DatabaseHandler(this);
+    private String foldername;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,9 @@ public class Album_ImageList extends Activity {
         Log.v("error1", "mContext :     " + String.valueOf(mContext));
         GridView gv = (GridView) findViewById(R.id.ImgGridView);
         final ImageAdapter ia = new ImageAdapter(this);
+        foldername = db.getContactname(1);
+        Log.v("foldername", "앨범에서 폴더이름" + foldername);
+
         gv.setAdapter(ia);
         gv.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -109,7 +116,7 @@ public class Album_ImageList extends Activity {
             Cursor imageCursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                     proj,
                     MediaStore.Images.Media.DATA + " like ? ",
-                    new String[]{"%100RICOH/%"},
+                    new String[]{"%"+foldername+"/%"},
                     null);
 
             if (imageCursor != null && imageCursor.moveToFirst()) {
