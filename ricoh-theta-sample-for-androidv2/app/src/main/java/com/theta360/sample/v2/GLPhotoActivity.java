@@ -1,11 +1,14 @@
 package com.theta360.sample.v2;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -60,6 +63,11 @@ public class GLPhotoActivity extends Activity implements ConfigurationDialog.Dia
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_glphoto);
+        ActionBar actionBar = getActionBar();
+        //action bar
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#cb002f"))); // 색상 변경(색상코드)﻿
+        actionBar.setDisplayShowHomeEnabled(false);
+
 
         Intent intent = getIntent();
         String cameraIpAddress = intent.getStringExtra(CAMERA_IP_ADDRESS);
